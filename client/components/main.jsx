@@ -30,7 +30,7 @@ export default class Home extends React.Component {
             <button>FAQ</button>
           </div>
           <div className="about" id="about">
-            <h1>WELCOME TO KAT'S GUITARS - TONS OF INSTRUMENTS</h1>
+            <h1>KAT'S GUITARS: INSTRUMENTS, REPAIRS, LESSONS, OH MY!</h1>
             <div className="column">
               <div className="about-content">
                 <img src="texasflag.png" />
@@ -48,15 +48,15 @@ export default class Home extends React.Component {
             <div className="column">
               <div className="about-content">
                 <img src="musicnote.png" />
-                <p>A full service repair department and experienced
-                  music teachers offering a wide range of in-house lessons.</p>
+                <p>As home of some of the best musicians in Houston, Kat's offers
+                  a wide range of in-house lessons.</p>
               </div>
             </div>
             <div className="column">
               <div className="about-content">
-                <img src="musicnote.png" />
-                <p>We also have a full service repair department and experienced
-                  music teachers offering a wide range of in-house lessons.</p>
+                <img src="screwdriver.png" />
+                <p>With long time experienced technicians that have played in the houston scene
+                  we have years of experience.</p>
               </div>
             </div>
           </div>
