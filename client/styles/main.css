@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.page, body, html {
+  height: 100%;
+  width: 100$;
+}
+.background {
+  position:absolute;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  background: url("http://www.katsguitars.com/wp-content/uploads/2016/01/shopguitars2-1.jpg");
+  background-size: 100% 100%;
+}
+.katslogo{
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+.katslogo img{
+  width: 300px;
+}
+.fixed-header{
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  height: 70px;
+  color: white;
+  background-color: #121212;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.fixed-header h3{
+  font-size: 30px;
+}
+.layout{
+  background-color: rgba(255, 255, 255, 0.8);
+  padding-top: 180px;
+  position: absolute;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+.header-title, .header-links div, .header-links{
+  display: inline-block;
+}
+.header-title{
+  margin-top: 10px;
+  margin-left: 50px;
+}
+.header-links{
+  float: right;
+  padding-top: 20px;
+  margin-right: 50px;
+}
+.header-links div{
+  margin-left: 20px;
+}
+.slogan{
+  margin-top: 40px;
+  color: black;
+  text-align: center;
+  font-size: 20px;
+}
+.call-to-action{
+  padding-top: 100px;
+  width: 620px;
+  margin: 0 auto;
+}
+.call-to-action button{
+  width: 200px;
+  margin-left: 5px;
+  border: none;
+  background-color: black;
+  height: 50px;
+  color: white;
+  font-size: 24px;
+  box-shadow: 0 0 10px black;
+}
