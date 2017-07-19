@@ -7,12 +7,12 @@
   width: 100$;
 }
 .background {
-  position:absolute;
+  position: fixed;
   z-index: 0;
   height: 100%;
   width: 100%;
-  background: url("http://www.katsguitars.com/wp-content/uploads/2016/01/shopguitars2-1.jpg");
-  background-size: 100% 100%;
+  background: url("https://reverb-res.cloudinary.com/image/upload/v1447364162/d7gyufrhnxhtbza3wavt.jpg");
+  background-size: cover;
 }
 .katslogo{
   position: relative;
@@ -30,19 +30,19 @@
   width: 100%;
   height: 70px;
   color: white;
-  background-color: #121212;
-  padding: 5px;
+  background-color: rgba(0, 0, 0, 1);
   box-sizing: border-box;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 .fixed-header h3{
   font-size: 30px;
 }
 .layout{
-  background-color: rgba(255, 255, 255, 0.8);
   padding-top: 180px;
   position: absolute;
   z-index: 1;
-  height: 100%;
+  height: 700px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -50,35 +50,102 @@
   display: inline-block;
 }
 .header-title{
-  margin-top: 10px;
-  margin-left: 50px;
+  margin-top: 17px;
 }
 .header-links{
   float: right;
-  padding-top: 20px;
-  margin-right: 50px;
 }
 .header-links div{
-  margin-left: 20px;
+  padding-top: 26px;
+  height: 70px;
+  width: 100px;
+  text-align: center;
+  box-sizing: border-box;
 }
 .slogan{
   margin-top: 40px;
-  color: black;
+  color: white;
   text-align: center;
   font-size: 20px;
+  text-shadow: 0 0 15px #353535, 0 0 15px black;
 }
 .call-to-action{
-  padding-top: 100px;
-  width: 620px;
+  padding-top: 75px;
+  width: 700px;
   margin: 0 auto;
 }
 .call-to-action button{
   width: 200px;
-  margin-left: 5px;
+  margin-left: 30px;
   border: none;
-  background-color: black;
+  background-color: rgba(204,55,47, 0.9);
   height: 50px;
   color: white;
-  font-size: 24px;
-  box-shadow: 0 0 10px black;
+  font-size: 20px;
+  box-shadow: 0 0 15px #121212;
+}
+.call-to-action button:hover{
+  color: #CC372F;
+  background-color: white;
+}
+.main-info-background{
+  width: 800px;
+  padding: 50px;
+  margin: 0 auto;
+}
+.about{
+  background-color: #a6482c;
+  color: white;
+  padding-top: 80px;
+  height: 500px;
+  width: 100%;
+  margin-top: 231px;
+  box-sizing: border-box;
+}
+.about h1{
+  text-align: center;
+  font-size: 40px;
+  margin: 0 auto 20px;
+}
+.about-content{
+  color: white;
+  padding: 20px;
+}
+.about > div > img {
+  width: 200px;
+  margin: 0 auto;
+}
+.about .column:nth-child(2){
+  background-color: #BF360C;
+}
+.about .column:nth-child(3){
+  background-color: #D84315;
+}
+.about .column:nth-child(4){
+  background-color: #E64A19;
+}
+.about .column:nth-child(5){
+  background-color: #F4511E;
+}
+
+.about .column{
+  margin-top: 60px;
+  text-align: center;
+  height: 500px;
+  padding: 0 10px 0 10px;
+  width: 25%;
+  background-color: black;
+  float: left;
+  box-sizing: border-box;
+  font-size: 20px;
+}
+.about div p{
+  margin-top: 20px;
+  text-align: left;
+}
+.divider{
+  background-color: #a6482c;
+  width: 100%;
+  height: 50px;
+  clear: both;
 }
