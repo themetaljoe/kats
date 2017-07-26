@@ -38,6 +38,10 @@
 .fixed-header h3{
   font-size: 30px;
 }
+.fixed-header a{
+  color: white;
+  text-decoration: none;
+}
 .layout{
   padding-top: 180px;
   position: absolute;
