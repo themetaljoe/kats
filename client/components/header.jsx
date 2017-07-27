@@ -1,20 +1,48 @@
 import React from 'react';
-import { slide as Menu } from 'react-burger-menu'
 
 export default class Home extends React.Component {
-  render() {
+  constructor() {
+    super();
+    this.menuBreakPoint = 725; this.state = {
+      collapsed: false,
+      menuHidden: true,
+    };
+  }
+
+  componentDidMount() {
+    this.handleResize();
+    window.addEventListener("optimizedResize", () => this.handleResize());
+  }
+
+  handleResize() {
+    if (innerWidth < this.menuBreakPoint && !this.state.collapsed) {
+      this.setState({ collapsed: true })
+    } else if (this.state.collapsed && innerWidth >= this.menuBreakPoint){
+      this.setState({ collapsed: false, menuHidden: true })
+    }
+  }
+
+  getLinksExpanded() {
     return (
-      <div className="fixed-header">
-        <div className="header-title">
-        <h3>Kat's Guitars</h3>
+      <div className="header-links">
+        <div>
+          <a href="/">Home</a>
         </div>
-       <Menu>
-          <a id="home" className="menu-item" href="/">Home</a>
-          <a id="about" className="menu-item" href="#about">About</a>
-          <a id="contact" className="menu-item" href="#contact">Contact</a>
-          <a onClick={ this.showSettings } className="menu-item--small" href="">Settings</a>
-        </Menu>
-        <div className="header-links">
+        <div>
+          <a href="#about">About</a>
+        </div>
+        <div>Brands</div>
+        <div>Location</div>
+        <div>Reviews</div>
+      </div>
+    );
+  }
+
+  getMiniMenuLayout() {
+    return (
+      <div>
+        <img onClick={() => { this.setState({ menuHidden: true }) }} id='hamburger' src="hamburger.png" />
+        <div className="hidden-menu">
           <div>
             <a href="/">Home</a>
           </div>
@@ -28,4 +56,52 @@ export default class Home extends React.Component {
       </div>
     );
   }
+
+  getHamburger() {
+    return (
+      <div>
+        <img onClick={() => { this.setState({ menuHidden: false }) }} id='hamburger' src="hamburger.png" />
+      </div>
+    );
+  }
+
+  getLinksCollapsed() {
+    return (
+      <div>
+        { this.state.menuHidden ? this.getHamburger() : this.getMiniMenuLayout() }
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div className="fixed-header">
+        <div className="header-title">
+        <h3>Kat's Guitars</h3>
+        </div>
+        { this.state.collapsed ? this.getLinksCollapsed() : this.getLinksExpanded() }
+      </div>
+    );
+  }
 }
+
+(function() {
+    var throttle = function(type, name, obj) {
+        obj = obj || window;
+        var running = false;
+        var func = function() {
+            if (running) { return; }
+            running = true;
+             requestAnimationFrame(function() {
+                obj.dispatchEvent(new CustomEvent(name));
+                running = false;
+            });
+        };
+        obj.addEventListener(type, func);
+    };
+
+    /* init - you can init any event */
+    throttle("resize", "optimizedResize");
+})();
+
+
