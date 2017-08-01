@@ -14,7 +14,9 @@ export default class MainAboveFold extends React.Component {
           <a href='/products'>
             <button>BUY</button>
           </a>
-          <button>SELL / LOAN</button>
+          <a href='/quote'>
+            <button>SELL / LOAN</button>
+          </a>
           <button>QUESTIONS?</button>
         </div>
       </div>

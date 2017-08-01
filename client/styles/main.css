@@ -1,12 +1,15 @@
+/* CSS RESETS TO REMOVE BROWSER PRESETS */
 * {
   margin: 0;
   padding: 0;
 }
+/* Base styles for the app */
 .page, body, html {
   font-family: 'Roboto', sans-serif;
   height: 100%;
   width: 100$;
 }
+/* Main page route styles */
 .background {
   position: fixed;
   z-index: 0;
@@ -87,6 +90,9 @@
   padding-top: 75px;
   width: 700px;
   margin: 0 auto;
+}
+.call-to-action a{
+  text-decoration: none;
 }
 .call-to-action button{
   width: 200px;
@@ -300,6 +306,7 @@
   padding-left: 50px;
   margin-bottom: 50px;
 }
+/* Products route styles */
 .products{
   min-height: 1000px;
   background: #efefef;
@@ -387,6 +394,7 @@
   color: #B3E5FC;
   font-size: 20px;
 }
+/* Begin the wonders of media queries */
 @media (max-width: 1250px) {
   .a-product{
     width: calc(50% - 40px);
