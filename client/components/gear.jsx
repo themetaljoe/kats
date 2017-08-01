@@ -20,6 +20,7 @@ export default class GearList extends React.Component {
                             <div><img src={brandName.logoPath} /></div>
                             <div>{brandName.name}</div>
                             <button>SHOP</button>
+                            <div className='divider'></div>
                           </li>
                         );
                       })

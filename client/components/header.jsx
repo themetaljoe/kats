@@ -3,7 +3,7 @@ import React from 'react';
 export default class Home extends React.Component {
   constructor() {
     super();
-    this.menuBreakPoint = 725; this.state = {
+    this.menuBreakPoint = 745; this.state = {
       collapsed: false,
       menuHidden: true,
     };
