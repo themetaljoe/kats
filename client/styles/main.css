@@ -180,3 +180,42 @@
   background: white;
   color: black;
 }
+.gear-list{
+  background: white;
+  padding-top: 50px;
+}
+.gear-list .card{
+  box-shadow: 0 0 5px #afafaf;
+}
+.gear-list h5 {
+  padding: 10px 5px;
+  background: #FF5722;
+  font-size: 24px;
+  color: white;
+}
+.a-gear-category{
+  padding: 20px;
+  vertical-align: top;
+  float: left;
+  width: 50%;
+  box-sizing: border-box;
+}
+.gear-list ul{
+  list-style-type: none;
+  background: #efefef;
+}
+.gear-list li{
+  padding: 10px;
+  font-size: 20px;
+}
+.gear-list li div{
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 60px;
+}
+.gear-list li div:nth-child(odd){
+  width: 50%;
+}
+.gear-list li img{
+  height: 40px;
+}

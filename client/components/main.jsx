@@ -2,6 +2,8 @@ import React from 'react';
 import FixedHeader from './header';
 import MainAboveFold from './main-above-fold';
 import About from './about';
+import GearList from './gear';
+
 export default class Home extends React.Component {
   render() {
     return (
@@ -11,6 +13,7 @@ export default class Home extends React.Component {
           <FixedHeader />
           <MainAboveFold />
           <About />
+          <GearList />
         </div>
       </div>
     );
