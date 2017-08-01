@@ -11,7 +11,9 @@ export default class MainAboveFold extends React.Component {
           <h1>FULL LINE MUSIC STORE – HUGE SELECTION</h1>
         </div>
         <div className="call-to-action">
-          <button>BUY</button>
+          <a href='/products'>
+            <button>BUY</button>
+          </a>
           <button>SELL / LOAN</button>
           <button>QUESTIONS?</button>
         </div>
