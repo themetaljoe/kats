@@ -308,24 +308,31 @@
   width: 100%;
   box-sizing: border-box;
 }
+.a-product:hover{
+  background-color: #29B6F6;
+}
 .a-product{
+  text-align: center;
   display: inline-block;
   width: 30%;
   padding: 20px;
   box-sizing: border-box;
   margin: 20px;
   box-shadow: 0 0 5px #afafaf;
-  background-color: #fafafa;
+  background-color: #039BE5;
 }
 .a-product img{
   height: 200px;
   width: auto;
+  margin: 0 auto;
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 .a-product h1{
   text-decoration: none;
   color: #039BE5;
+  padding: 5px;
+  background: white;
   font-size: 20px;
   white-space: nowrap;
   overflow: hidden;
@@ -336,14 +343,18 @@
   vertical-align: middle;
   display: inline-block;
   font-size: 30px;
-  color: green;
+  padding: 5px;
+  color: white;
+  border-radius: 5px;
   margin-right: 20px;
 }
 .a-product h3{
   vertical-align: middle;
   display: inline-block;
   font-size: 16px;
-  color: #afafaf;
+  padding: 5px;
+  color: white;
+  border-radius: 5px;
 }
 
 @media (max-width: 1250px) {
