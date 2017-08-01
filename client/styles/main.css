@@ -168,18 +168,19 @@
   left: 0;
   width: 100%;
   font-size: 30px;
+  margin-top: 10px;
   padding-top: 25px;
-  background: black;
+  background: white;
 }
 .hidden-menu div{
   padding-left: 20px;
-  background: black;
+  background: white;
   padding-top: 10px;
   padding-bottom: 10px;
 }
 .hidden-menu div:hover, .hidden-menu div:hover a{
-  background: white;
-  color: black;
+  background: #039BE5;
+  color: white;
 }
 .gear-list{
   background: white;

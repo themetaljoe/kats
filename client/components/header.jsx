@@ -41,20 +41,27 @@ export default class Home extends React.Component {
     );
   }
 
+  closeMenu() {
+    this.setState({ menuHidden: true });
+  }
+
   getMiniMenuLayout() {
     return (
       <div>
-        <img onClick={() => { this.setState({ menuHidden: true }) }} id='hamburger' src="hamburger.png" />
+        <img onClick={() => { this.closeMenu() }} id='hamburger' src="hamburger.png" />
         <div className="hidden-menu">
-          <div>
-            <a href="/">Home</a>
-          </div>
-          <div>
-            <a href="#about">About</a>
-          </div>
-          <div>Brands</div>
-          <div>Location</div>
-          <div>Reviews</div>
+          <a href="/" onClick={() => { this.closeMenu() }}>
+            <div>Home</div>
+          </a>
+          <a href="#about" onClick={() => { this.closeMenu() }}>
+            <div>About</div>
+          </a>
+          <a href="#gear" onClick={() => { this.closeMenu() }}>
+            <div>Brands</div>
+          </a>
+          <a href="#location" onClick={() => { this.closeMenu() }}>
+            <div>Location</div>
+          </a>
         </div>
       </div>
     );
@@ -87,24 +94,3 @@ export default class Home extends React.Component {
     );
   }
 }
-
-(function() {
-    var throttle = function(type, name, obj) {
-        obj = obj || window;
-        var running = false;
-        var func = function() {
-            if (running) { return; }
-            running = true;
-             requestAnimationFrame(function() {
-                obj.dispatchEvent(new CustomEvent(name));
-                running = false;
-            });
-        };
-        obj.addEventListener(type, func);
-    };
-
-    /* init - you can init any event */
-    throttle("resize", "optimizedResize");
-})();
-
-
