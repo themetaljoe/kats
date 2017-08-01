@@ -13,7 +13,7 @@ export default class MainAboveFold extends React.Component {
         <div className="call-to-action">
           <button>BUY</button>
           <button>SELL / LOAN</button>
-          <button>QESTIONS?</button>
+          <button>QUESTIONS?</button>
         </div>
       </div>
     );

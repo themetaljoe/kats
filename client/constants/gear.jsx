@@ -3,29 +3,6 @@ function BrandFactory(name, logoPath) {
 }
 
 export const GearBrandMap = {
-  'AMPLIFIERS': [
-    BrandFactory('Krank', 'http://www.reamp-studio.com/wp-content/uploads/2015/10/KNKlogoGREEN.png'),
-    BrandFactory('Blackstar', 'https://www.blackstaramps.com/img/master/logo-dark.png'),
-    BrandFactory('Marshall', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Marshall_logo.svg/1280px-Marshall_logo.svg.png'),
-    BrandFactory('Line 6', 'http://www.guitar-planet.co.uk/wp-content/uploads/2016/10/logo-Line6.png'),
-    BrandFactory('Roland', 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Roland_logo.svg/2000px-Roland_logo.svg.png'),
-    BrandFactory('Behringer', 'https://static1.squarespace.com/static/51a1a217e4b0660e99ad7be8/58338fc62e69cf204644657e/58338fd49de4bb598d192bb7/1479774811866/behringer-logo.png'),
-    BrandFactory('Orange', 'https://orangeamps.com/wp-content/uploads/2014/11/Orange-logo.png'),
-    BrandFactory('EVH', 'http://evhgeardiscussion.com/wp-content/uploads/2014/08/barnds-evh.png'),
-    BrandFactory('Peavey', 'https://seeklogo.com/images/P/Peavey-logo-AEA354CA51-seeklogo.com.png'),
-  ],
-  'PICKUPS': [
-    BrandFactory('Fender', 'https://seeklogo.com/images/F/Fender-logo-1FDA71BA74-seeklogo.com.png'),
-    BrandFactory('Gibson', 'http://files.soundstorejapan.com/200000051-3979e3a748/59%20Gibson%20Logo.jpg'),
-    BrandFactory('Rio Grande', 'http://2ap6ndle7dn3hxy4u3p0d587.wpengine.netdna-cdn.com/wp-content/uploads/2011/03/riograndedec07.jpg'),
-    BrandFactory('EMG', 'https://upload.wikimedia.org/wikipedia/en/1/14/EMG_logo.png'),
-    BrandFactory('TV Jones', 'http://static.no1-guitars.de/uploads/2012/09/TVJones_logo_inst.png'),
-    BrandFactory('Lace', 'http://www.lacemusic.com/img/lace_logo_RW.png'),
-    BrandFactory('DiMarzio', 'http://lghttp.54936.nexcesscdn.net/8033D67/magento/media/wysiwyg/MfgLogo/DiMarzioLogo.jpg'),
-    BrandFactory('PRS', 'https://cdn3.bigcommerce.com/s-qmkmkpbc/product_images/uploaded_images/prs-logo-vector-black.jpg?t=1475858326'),
-    BrandFactory('EVH', 'http://evhgeardiscussion.com/wp-content/uploads/2014/08/barnds-evh.png'),
-    BrandFactory('Seymour Duncan', 'http://www.seymourduncan.com/wp-content/uploads/2016/02/sd_logo_primary_1black.jpg'),
-  ],
   'PEDALS & EFFECTS': [
     BrandFactory('Wampler', 'http://cdn2.bigcommerce.com/server3100/y88g1p/product_images/uploaded_images/logo-white-on-black.jpg?t=1439947293'),
     BrandFactory('Electro-Harmonix', 'https://www.ehx.com/images/blog/electro-harmonix.png'),
@@ -51,6 +28,30 @@ export const GearBrandMap = {
     BrandFactory('Strymon *', 'http://www.strymon.net/wp-content/uploads/2016/01/strymon_logo.png'),
     BrandFactory('MXR Custom *', 'https://donstickguitar.files.wordpress.com/2015/08/mxr-dunlop.jpg?w=626&h=313'),
     BrandFactory('Seymour Duncan *', 'http://www.seymourduncan.com/wp-content/uploads/2016/02/sd_logo_primary_1black.jpg'),
+  ],
+
+  'AMPLIFIERS': [
+    BrandFactory('Krank', 'http://www.reamp-studio.com/wp-content/uploads/2015/10/KNKlogoGREEN.png'),
+    BrandFactory('Blackstar', 'https://www.blackstaramps.com/img/master/logo-dark.png'),
+    BrandFactory('Marshall', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Marshall_logo.svg/1280px-Marshall_logo.svg.png'),
+    BrandFactory('Line 6', 'http://www.guitar-planet.co.uk/wp-content/uploads/2016/10/logo-Line6.png'),
+    BrandFactory('Roland', 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Roland_logo.svg/2000px-Roland_logo.svg.png'),
+    BrandFactory('Behringer', 'https://static1.squarespace.com/static/51a1a217e4b0660e99ad7be8/58338fc62e69cf204644657e/58338fd49de4bb598d192bb7/1479774811866/behringer-logo.png'),
+    BrandFactory('Orange', 'https://orangeamps.com/wp-content/uploads/2014/11/Orange-logo.png'),
+    BrandFactory('EVH', 'http://evhgeardiscussion.com/wp-content/uploads/2014/08/barnds-evh.png'),
+    BrandFactory('Peavey', 'https://seeklogo.com/images/P/Peavey-logo-AEA354CA51-seeklogo.com.png'),
+  ],
+  'PICKUPS': [
+    BrandFactory('Fender', 'https://seeklogo.com/images/F/Fender-logo-1FDA71BA74-seeklogo.com.png'),
+    BrandFactory('Gibson', 'http://files.soundstorejapan.com/200000051-3979e3a748/59%20Gibson%20Logo.jpg'),
+    BrandFactory('Rio Grande', 'http://2ap6ndle7dn3hxy4u3p0d587.wpengine.netdna-cdn.com/wp-content/uploads/2011/03/riograndedec07.jpg'),
+    BrandFactory('EMG', 'https://upload.wikimedia.org/wikipedia/en/1/14/EMG_logo.png'),
+    BrandFactory('TV Jones', 'http://static.no1-guitars.de/uploads/2012/09/TVJones_logo_inst.png'),
+    BrandFactory('Lace', 'http://www.lacemusic.com/img/lace_logo_RW.png'),
+    BrandFactory('DiMarzio', 'http://lghttp.54936.nexcesscdn.net/8033D67/magento/media/wysiwyg/MfgLogo/DiMarzioLogo.jpg'),
+    BrandFactory('PRS', 'https://cdn3.bigcommerce.com/s-qmkmkpbc/product_images/uploaded_images/prs-logo-vector-black.jpg?t=1475858326'),
+    BrandFactory('EVH', 'http://evhgeardiscussion.com/wp-content/uploads/2014/08/barnds-evh.png'),
+    BrandFactory('Seymour Duncan', 'http://www.seymourduncan.com/wp-content/uploads/2016/02/sd_logo_primary_1black.jpg'),
   ],
   'TUBES': [
     BrandFactory('Mullard', 'https://i0.wp.com/bobsshack.co.uk/wp-content/uploads/2014/07/mullard.png?fit=525%2C300&w=640'),

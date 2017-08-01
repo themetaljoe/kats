@@ -4,7 +4,7 @@ import { GearBrandMap } from '../constants/gear';
 export default class GearList extends React.Component {
   render() {
     return (
-      <div className="gear-list">
+      <div id="gear" className="gear-list">
         {
           Object.keys(GearBrandMap).map(key => {
             return (

@@ -3,6 +3,7 @@
   padding: 0;
 }
 .page, body, html {
+  font-family: 'Roboto', sans-serif;
   height: 100%;
   width: 100$;
 }

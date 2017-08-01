@@ -31,7 +31,9 @@ export default class Home extends React.Component {
         <div>
           <a href="#about">About</a>
         </div>
-        <div>Brands</div>
+        <div>
+          <a href="#gear">Brands</a>
+        </div>
         <div>Location</div>
         <div>Reviews</div>
       </div>
