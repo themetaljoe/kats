@@ -5,6 +5,7 @@ export default class GearList extends React.Component {
   render() {
     return (
       <div id="gear" className="gear-list">
+        <h1>Top of the line gear!</h1>
         {
           Object.keys(GearBrandMap).map(key => {
             return (

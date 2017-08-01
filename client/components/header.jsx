@@ -34,8 +34,9 @@ export default class Home extends React.Component {
         <div>
           <a href="#gear">Brands</a>
         </div>
-        <div>Location</div>
-        <div>Reviews</div>
+        <div>
+          <a href="#location">Location</a>
+        </div>
       </div>
     );
   }
@@ -79,7 +80,7 @@ export default class Home extends React.Component {
     return (
       <div className="fixed-header">
         <div className="header-title">
-        <h3>Kat's Guitars</h3>
+        <h3>Allpawn - Kat's Guitars</h3>
         </div>
         { this.state.collapsed ? this.getLinksCollapsed() : this.getLinksExpanded() }
       </div>

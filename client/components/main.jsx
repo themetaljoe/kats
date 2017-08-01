@@ -3,6 +3,7 @@ import FixedHeader from './header';
 import MainAboveFold from './main-above-fold';
 import About from './about';
 import GearList from './gear';
+import Location from './location';
 
 export default class Home extends React.Component {
   render() {
@@ -14,6 +15,7 @@ export default class Home extends React.Component {
           <MainAboveFold />
           <About />
           <GearList />
+          <Location />
         </div>
       </div>
     );
