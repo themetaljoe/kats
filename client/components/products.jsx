@@ -28,11 +28,13 @@ export default class Products extends React.Component {
         <div className="background"></div>
         <div className="products">
           <FixedHeader />
-          <div className='products-search'>
-            Search <input onChange={e => this.setState({ query: e.target.value })}/>
-          </div>
-          <div className='search-status'>
-            { this.state.query !== '' ? <div>Showing <span className='query-count'>{filteredProducts.length}</span> result(s) for <span className="query">{this.state.query}</span></div> : <div>Showing all <span className='query-count'>{filteredProducts.length}</span> results</div> }
+          <div className='fixed-search-bar'>
+            <div className='products-search'>
+              Search <input onChange={e => this.setState({ query: e.target.value })}/>
+            </div>
+            <div className='search-status'>
+              { this.state.query !== '' ? <div>Showing <span className='query-count'>{filteredProducts.length}</span> result(s) for <span className="query">{this.state.query}</span></div> : <div>Showing all <span className='query-count'>{filteredProducts.length}</span> results</div> }
+            </div>
           </div>
           { loading ? <div className="loader">Loading...</div> : <div></div>}
           {

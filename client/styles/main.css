@@ -303,7 +303,7 @@
 .products{
   min-height: 1000px;
   background: #efefef;
-  padding-top: 100px;
+  padding-top: 240px;
   position: absolute;
   z-index: 1;
   width: 100%;
@@ -355,6 +355,12 @@
   padding: 5px;
   border-radius: 5px;
 }
+.fixed-search-bar{
+  position: fixed;
+  top: 70px;
+  width: 100%;
+  background-color: rgba(55, 55, 55, 1);
+}
 .products-search{
   padding: 20px;
   font-size: 30px;
@@ -373,12 +379,12 @@
 }
 .search-status{
   padding: 20px;
-  color: #545454;
+  color: white;
   font-size: 16px;
 }
-.query{
+.query, .query-count{
   font-weight: bold;
-  color: black;
+  color: #B3E5FC;
   font-size: 20px;
 }
 @media (max-width: 1250px) {
