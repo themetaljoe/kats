@@ -188,7 +188,7 @@
   box-shadow: 0 0 5px #afafaf;
 }
 .gear-list h5 {
-  padding: 10px 5px;
+  padding: 10px 10px;
   background: #FF5722;
   font-size: 24px;
   color: white;
@@ -212,10 +212,31 @@
   display: inline-block;
   vertical-align: middle;
   margin-right: 60px;
+  width: 100px;
+}
+.gear-list li:nth-child(odd){
+  background: #ddd;
 }
 .gear-list li div:nth-child(odd){
   width: 50%;
+  max-width: 200px;
 }
 .gear-list li img{
   height: 40px;
+  max-width: 200px;
+}
+.gear-list button:hover{
+  background: white;
+  color: #FF5722;
+}
+.gear-list button{
+  margin-left: 20px;
+  background: #FF5722;
+  color: white;
+  right: 0;
+  padding: 10px;
+  outline: none;
+  border: none;
+  box-shadow: 0 0 5px #343434;
+  width: 100px;
 }
