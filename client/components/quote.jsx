@@ -1,6 +1,7 @@
 import React from 'react';
 import FixedHeader from './header';
 import Location from './location';
+import AvatarEditor from './image-component.jsx';
 
 export default class QuoteForm extends React.Component {
   constructor() {
@@ -38,6 +39,7 @@ export default class QuoteForm extends React.Component {
             {this.getField('Product Name')}
             {this.getField('Product Seriel Number')}
             {this.getField('Condition of item')}
+            <AvatarEditor />
             <button onClick={() => this.submit()}>GET A QUOTE</button>
           </div>
           <Location />

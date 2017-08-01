@@ -420,7 +420,7 @@
 .quote-form span{
   width: 200px;
 }
-.quote-form input{
+.quote-form > div > input{
   position: absolute;
   padding: 5px 10px 5px 10px;
   font-size: 24px;
@@ -452,6 +452,52 @@
   position: relative;
   width: calc(100% + 40px);
   left: -20px;
+}
+.image-uploader input{
+  position: absolute !important;
+  padding: 0 !important;
+  font-size: 24px !important;
+  outline: none !important;
+  border: none !important;
+  top: -2px;
+  left: 200px !important;
+  width: 300px;
+  background-color: transparent !important;
+}
+.uploaded-image{
+  width: 100%;
+}
+.image-uploader canvas{
+  float: left;
+}
+.image-uploader input[type=file] {
+  outline: 1px dotted #000 !important;
+  outline: -webkit-focus-ring-color auto 5px !important;
+}
+.image-uploader > div:last-child{
+  clear: both;
+}
+.upload-button{
+  background: white;
+  padding: 20px;
+  color: black;
+}
+.image-dashboard label{
+  width: 200px;
+}
+.image-dashboard{
+  margin-top: 0 !important;
+  float: left;
+  width: calc(100% - 250px);
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+.image-dashboard > div{
+  position: relative;
+  margin-top: 8px;
+  width: 100%;
+  margin-right: 40px;
+  float: left;
 }
 /* Begin the wonders of media queries */
 @media (max-width: 1250px) {
