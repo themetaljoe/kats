@@ -59,7 +59,7 @@ export default class FixedHeader extends React.Component {
   getLinksExpanded() {
     return (
       <div className="header-links">
-        { links.map(link => (<div><a href={link.href}>{link.content}</a></div>)) }
+        { links.map(link => (<div key={`link-${link.href}`}><a href={link.href}>{link.content}</a></div>)) }
       </div>
     );
   }
@@ -77,7 +77,7 @@ export default class FixedHeader extends React.Component {
       <div>
         <img onClick={() => { this.closeMenu() }} id='hamburger' src="hamburger.png" />
         <div className="hidden-menu">
-        { links.map(link => (<a key={`link-${link.href}`}href={link.href} onClick={() => { this.closeMenu() }}><div>{link.content}</div></a>)) }
+        { links.map(link => (<a key={`link-${link.href}`} href={link.href} onClick={() => { this.closeMenu() }}><div>{link.content}</div></a>)) }
         </div>
       </div>
     );

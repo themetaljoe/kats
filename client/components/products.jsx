@@ -22,7 +22,6 @@ export default class Products extends React.Component {
   render() {
     const loading = this.state.products.length === 0;
     const filteredProducts = this.state.products.filter(product => product.name.toLowerCase().indexOf(this.state.query.toLowerCase()) > -1);
-    console.log(this.state.query)
     return  (
       <div className="page">
         <div className="background"></div>
@@ -39,7 +38,7 @@ export default class Products extends React.Component {
           { loading ? <div className="loader">Loading...</div> : <div></div>}
           {
             filteredProducts.map(product => (
-              <a href={product.link}>
+              <a key={`product-${product.link}`} href={product.link}>
                 <div className='a-product'>
                   <h1>{product.name}</h1>
                   <img src={product.path} />

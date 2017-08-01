@@ -381,7 +381,7 @@
   outline: none;
   border: none;
   border-radius: 5px;
-  width: calc(100% - 200px);
+  width: calc(100% - 160px);
   font-style: italic;
 }
 .search-status{
@@ -393,6 +393,58 @@
   font-weight: bold;
   color: #B3E5FC;
   font-size: 20px;
+}
+/* Begin Quote route styles */
+.quote{
+  padding: 100px 20px;
+}
+.quote-form {
+  width: 100%;
+  display: inline-block;
+  padding: 20px;
+  padding-bottom: 40px;
+  box-shadow: 0 0 10px #878787;
+  box-sizing: border-box;
+  background-color: #039BE5;
+  color: white;
+}
+.quote-form p{
+  margin-top: 10px;
+}
+.quote-form div{
+  margin-top: 30px;
+  font-size: 24px;
+  position: relative;
+}
+.quote-form span{
+  width: 200px;
+}
+.quote-form input{
+  position: absolute;
+  padding: 5px 10px 5px 10px;
+  font-size: 24px;
+  outline: none;
+  border: none;
+  top: 0;
+  left: 300px;
+  width: calc(100% - 330px);
+  background-color: white;
+}
+.quote button:hover{
+  background: white;
+  color: #FF5722;
+}
+.quote button{
+  margin-top: 20px;
+  background: #FF5722;
+  color: white;
+  right: 0;
+  font-size: 30px;
+  padding: 10px;
+  outline: none;
+  border: none;
+  box-shadow: 0 0 5px #343434;
+  width: 200px;
 }
 /* Begin the wonders of media queries */
 @media (max-width: 1250px) {
