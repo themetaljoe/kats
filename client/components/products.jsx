@@ -1,6 +1,7 @@
 import React from 'react';
 import FixedHeader from './header';
 import { Meteor } from 'meteor/meteor';
+import Location from './location';
 
 export default class Products extends React.Component {
   constructor() {
@@ -48,6 +49,7 @@ export default class Products extends React.Component {
               </a>
             ))
           }
+          <Location />
         </div>
       </div>
     );

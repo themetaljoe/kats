@@ -1,5 +1,6 @@
 import React from 'react';
 import FixedHeader from './header';
+import Location from './location';
 
 export default class QuoteForm extends React.Component {
   constructor() {
@@ -26,7 +27,6 @@ export default class QuoteForm extends React.Component {
   render() {
     return(
       <div className="page">
-        <div className="background"></div>
         <div className="layout quote">
           <FixedHeader />
           <div className="quote-form">
@@ -38,8 +38,9 @@ export default class QuoteForm extends React.Component {
             {this.getField('Product Name')}
             {this.getField('Product Seriel Number')}
             {this.getField('Condition of item')}
+            <button onClick={() => this.submit()}>GET A QUOTE</button>
           </div>
-          <button onClick={() => this.submit()}>SEND</button>
+          <Location />
         </div>
       </div>
     );

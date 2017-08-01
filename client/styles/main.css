@@ -218,6 +218,7 @@
 }
 .gear-list li{
   padding: 10px;
+  padding-top: 40px;
   font-size: 20px;
 }
 .gear-list li div{
@@ -397,13 +398,13 @@
 /* Begin Quote route styles */
 .quote{
   padding: 100px 20px;
+  background: white;
 }
 .quote-form {
   width: 100%;
   display: inline-block;
   padding: 20px;
-  padding-bottom: 40px;
-  box-shadow: 0 0 10px #878787;
+  margin-bottom: 40px;
   box-sizing: border-box;
   background-color: #039BE5;
   color: white;
@@ -435,16 +436,22 @@
   color: #FF5722;
 }
 .quote button{
-  margin-top: 20px;
-  background: #FF5722;
-  color: white;
+  margin-top: 40px;
+  background: white;
+  color: #FF5722;
   right: 0;
   font-size: 30px;
   padding: 10px;
   outline: none;
   border: none;
-  box-shadow: 0 0 5px #343434;
-  width: 200px;
+  width: calc(100% - 10px);
+  cursor: pointer;
+  box-shadow: 0 0 5px #454545;
+}
+.quote .location {
+  position: relative;
+  width: calc(100% + 40px);
+  left: -20px;
 }
 /* Begin the wonders of media queries */
 @media (max-width: 1250px) {
@@ -460,6 +467,9 @@
   }
   .a-gear-category button{
     float: right;
+  }
+  .gear-list li{
+    padding-top: 20px;
   }
   .about .column{
     width: 50%;
@@ -481,6 +491,21 @@
   }
 }
 @media (max-width: 750px) {
+  .quote.layout{
+    padding-top: 70px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .quote-form{
+    margin-bottom: 0;
+  }
+  .quote-form input{
+    margin-top: 10px;
+    width: calc(100% - 40px);
+    display: block;
+    position: relative;
+    left: 0;
+  }
   .call-to-action{
     width: 100%;
   }
