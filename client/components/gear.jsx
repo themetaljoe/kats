@@ -1,4 +1,5 @@
 import React from 'react';
+import StickyBox from "react-sticky-box";
 /* GearBrandMap is an {Object} with [keys] who are types of gear IE: "Amps,
  * pedals, ect"
  *   each Type is the key and the value is an [Array] of "brandNames" in that
@@ -22,6 +23,12 @@ import { GearBrandMap } from '../constants/gear';
  *   search in that category for that brand.
  * * */
 export default class GearList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      activeCategory: Object.keys(GearBrandMap)[0],
+    }
+  }
   /* getListItem (key)
    *  accepts argument key which is the type IE: "AMPLIFIERS"
    *    then (maps) over all {brandName}s in that type
@@ -30,10 +37,9 @@ export default class GearList extends React.Component {
   getListItems(key) {
     return GearBrandMap[key].map(brandName => (
       <li key={`brands-${brandName.name}`}>
-        <div><img src={brandName.logoPath} /></div>
-        <div>{brandName.name}</div>
-        <button>SHOP</button>
-        <div className='divider'></div>
+        <div className='brand-name'>{brandName.name}</div>
+        <div className='brand-image'><img src={brandName.logoPath} /></div>
+        <button>CHECK OUR STOCK</button>
       </li>
     ));
   }
@@ -43,23 +49,35 @@ export default class GearList extends React.Component {
    *    returns [Array] of <JSX-Layouts />
    * * */
   getLists() {
-    return Object.keys(GearBrandMap).map(key => (
-      <div key={`gear-category-${key}`} className='a-gear-category'>
-        <div className="card">
-          <h5>{key}</h5>
-          <ul>
-            {this.getListItems(key)}
-          </ul>
-        </div>
+    return Object.keys(GearBrandMap).map((key, i) => (
+      <div key={`gear-category-${key}`} className={`a-gear-category ${this.state.activeCategory === key ? 'focus' : ''}`} onClick={() => this.setState({ activeCategory: key })}>
+        <div>{key}</div>
+        {this.getCategoryPathImageFromIndex(i)}
       </div>
     ));
   }
 
+  getCategoryPathImageFromIndex(index) {
+    return [
+      <img src="pedal.png" />,
+      <img src="amp.png" />,
+      <img src="pickup.png" />,
+      <img src="tube.png" />,
+      <img src="lighting.png" />,
+    ][index];
+  }
   render() {
     return (
       <div id="gear" className="gear-list">
-        <h1>Top of the line gear!</h1>
-        {this.getLists()}
+        <h1>Full line brand selection!</h1>
+        <div className="category-container">
+          {this.getLists()}
+        </div>
+        <ul>
+        {
+          this.getListItems(this.state.activeCategory)
+        }
+        </ul>
         <div className='divider'></div>
       </div>
     );

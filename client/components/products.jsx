@@ -9,6 +9,8 @@ export default class Products extends React.Component {
     this.state = {
       products: [],
       query: '',
+      focusProduct: {},
+      focusOpen: false,
     };
   }
 
@@ -20,6 +22,25 @@ export default class Products extends React.Component {
     });
   }
 
+  getProductOverlayLayout() {
+    const product = this.state.focusProduct;
+    return (
+      <div className='product-focus-page'>
+        <div className='product-focus-overlay' />
+        <div className='product-focus-content' onClick={() => { this.setState({ focusOpen: false }) }}>
+          <div
+            className="a-product focus"
+          >
+            <h1>{product.name}</h1>
+            <img src={product.path} />
+            <h2>{product.price}</h2>
+            <h3>{product.info}</h3>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const loading = this.state.products.length === 0;
     const filteredProducts = this.state.products.filter(product => product.name.toLowerCase().indexOf(this.state.query.toLowerCase()) > -1);
@@ -28,6 +49,7 @@ export default class Products extends React.Component {
         <div className="background"></div>
         <div className="products">
           <FixedHeader />
+          { this.state.focusOpen ? this.getProductOverlayLayout() : <span /> }
           <div className='fixed-search-bar'>
             <div className='products-search'>
               Search <input onChange={e => this.setState({ query: e.target.value })}/>
@@ -38,15 +60,16 @@ export default class Products extends React.Component {
           </div>
           { loading ? <div className="loader">Loading...</div> : <div></div>}
           {
-            filteredProducts.map(product => (
-              <a key={`product-${product.link}`} href={product.link}>
-                <div className='a-product'>
-                  <h1>{product.name}</h1>
-                  <img src={product.path} />
-                  <h2>{product.price}</h2>
-                  <h3>{product.info}</h3>
-                </div>
-              </a>
+            filteredProducts.map((product, i) => (
+              <div
+                className={`a-product ${i % 2 === 0 ?  'even' : 'odd' }`}
+                onClick={() => { window.scroll(0, 0); this.setState({ focusProduct: product, focusOpen: true }); }}
+              >
+                <h1>{product.name}</h1>
+                <img src={product.path} />
+                <h2>{product.price}</h2>
+                <h3>{product.info}</h3>
+              </div>
             ))
           }
           <Location />

@@ -13,6 +13,7 @@
     "react-burger-menu": "^2.1.4",
     "react-dom": "^15.5.4",
     "react-mounter": "^1.2.0",
+    "react-sticky-box": "^0.6.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.1"
   }
