@@ -114,7 +114,7 @@
   margin: 0 auto;
 }
 .about{
-  background-color: #a8350c;
+  background-color: #FF5722;
   color: white;
   padding-top: 80px;
   height: 500px;
@@ -135,36 +135,25 @@
   width: 200px;
   margin: 0 auto;
 }
-.about .column:nth-child(2){
-  background-color: #BF360C;
-}
-.about .column:nth-child(3){
-  background-color: #D84315;
-}
-.about .column:nth-child(4){
-  background-color: #E64A19;
-}
-.about .column:nth-child(5){
-  background-color: #F4511E;
-}
-
 .about .column{
   margin-top: 60px;
   text-align: center;
-  height: 500px;
+  height: 400px;
   padding: 0 10px 0 10px;
   width: 25%;
-  background-color: black;
+  background-color: white;
   float: left;
   box-sizing: border-box;
   font-size: 20px;
 }
 .about div p{
+  color: #039BE5;
+  font-size: 20px;
   margin-top: 20px;
-  text-align: left;
+  text-align: center;
 }
 .divider{
-  background-color: #FF5722;
+  background-color: white;
   width: 100%;
   height: 50px;
   clear: both;
@@ -662,7 +651,7 @@
 /* Begin the wonders of media queries */
 @media (max-width: 1250px) {
   .a-product{
-    width: calc(50% - 40px);
+    width: 50%;
   }
   .gear-list li{
     width: 33%;
@@ -683,7 +672,7 @@
 }
 @media (max-width: 780px) {
   .a-product{
-    width: calc(100% - 40px);
+    width: 100%;
   }
   .a-gear-category img{
     height: 50px;
