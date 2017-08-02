@@ -39,7 +39,7 @@ export default class GearList extends React.Component {
       <li key={`brands-${brandName.name}`}>
         <div className='brand-name'>{brandName.name}</div>
         <div className='brand-image'><img src={brandName.logoPath} /></div>
-        <button>CHECK OUR STOCK</button>
+        <button onClick={() => window.location = '/products'}>CHECK OUR STOCK</button>
       </li>
     ));
   }
@@ -50,7 +50,7 @@ export default class GearList extends React.Component {
    * * */
   getLists() {
     return Object.keys(GearBrandMap).map((key, i) => (
-      <div key={`gear-category-${key}`} className={`a-gear-category ${this.state.activeCategory === key ? 'focus' : ''}`} onClick={() => this.setState({ activeCategory: key })}>
+      <div key={`gear-category-${key}`} className={`a-gear-category ${this.state.activeCategory === key ? 'focus' : ''}`} onClick={() => { window.scroll(0, $('#gear').offset().top - 70); this.setState({ activeCategory: key }); }}>
         <div>{key}</div>
         {this.getCategoryPathImageFromIndex(i)}
       </div>
