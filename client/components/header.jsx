@@ -103,7 +103,7 @@ export default class FixedHeader extends React.Component {
     return (
       <div className="fixed-header">
         <div className="header-title">
-        <h3>Allpawn - Kat's Guitars</h3>
+        <img height="50" src="./allpawnlogo-optimized.png" />
         </div>
         { this.state.collapsed ? this.getLinksCollapsed() : this.getLinksExpanded() }
       </div>
