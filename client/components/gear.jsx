@@ -50,7 +50,7 @@ export default class GearList extends React.Component {
    * * */
   getLists() {
     return Object.keys(GearBrandMap).map((key, i) => (
-      <div key={`gear-category-${key}`} className={`a-gear-category ${this.state.activeCategory === key ? 'focus' : ''}`} onClick={() => { window.scroll(0, $('#gear').offset().top - 70); this.setState({ activeCategory: key }); }}>
+      <div key={`gear-category-${key}`} className={`a-gear-category ${this.state.activeCategory === key ? 'focus' : ''}`} onClick={() => { window.scroll(0, $('#gear').offset().top + 30); this.setState({ activeCategory: key }); }}>
         <div>{key}</div>
         {this.getCategoryPathImageFromIndex(i)}
       </div>

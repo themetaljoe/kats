@@ -126,6 +126,7 @@
   text-align: center;
   font-size: 35px;
   margin: 0 auto 20px;
+  padding: 20px;
 }
 .about-content{
   color: white;
@@ -139,7 +140,7 @@
   margin-top: 60px;
   text-align: center;
   height: 400px;
-  padding: 0 10px 40 10px;
+  padding: 0 10px 0 10px;
   width: 25%;
   background-color: #FF5722;
   float: left;
@@ -159,11 +160,12 @@
   clear: both;
 }
 .hidden-menu{
+  box-shadow: 0 4px 2px -2px #545545;
   position: absolute;
   left: 0;
   width: 100%;
   font-size: 30px;
-  margin-top: 10px;
+  margin-top: -2px;
   padding-top: 25px;
   background: white;
 }
@@ -183,7 +185,7 @@
   padding-top: 50px;
 }
 .category-container{
-  box-shadow: 0 4px 2px -2px gray;
+  box-shadow: 0 4px 2px -2px #cfcfcf;
   position: sticky;
   top: 70px;
 }
