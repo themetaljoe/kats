@@ -6,6 +6,7 @@ export default class ImageUpload extends React.Component {
   constructor() {
     super();
     this.state = {
+      done: false,
       showDashboard: false,
       position: { x: 0.5, y: 0.5 },
       scale: 1,
@@ -32,8 +33,10 @@ export default class ImageUpload extends React.Component {
         scale: this.state.scale,
         width: this.state.width,
         height: this.state.height,
-        borderRadius: this.state.borderRadius
-      }
+        borderRadius: this.state.borderRadius,
+      },
+      showDashboard: false,
+      done: true,
     })
   }
 
@@ -171,19 +174,27 @@ export default class ImageUpload extends React.Component {
           />
         </div>
         <div>
-         <input type='button' onClick={this.handleSave} value='Preview' />
+         <input id='done-button' className='done-button' type='button' onClick={this.handleSave} value='Preview' />
         </div>
-        {
-          !!this.state.preview &&
-            <img
-              src={this.state.preview.img}
-              style={{ borderRadius: `${(Math.min(this.state.preview.height, this.state.preview.width) + 10) * ((this.state.preview.borderRadius / 2) / 100)}px` }}
-            />
-        }
       </div>
     );
   }
   render () {
+    if (this.state.done) {
+      return (
+        <div>
+          {
+            !!this.state.preview &&
+            <img
+              src={this.state.preview.img}
+              style={{ borderRadius: `${(Math.min(this.state.preview.height, this.state.preview.width) + 10) * ((this.state.preview.borderRadius / 2) / 100)}px` }}
+              onClick={() => this.setState({ done: false })}
+            />
+          }
+        </div>
+      );
+    }
+
     return (
       <div className='image-uploader'>
         <div className='uploaded-image'>

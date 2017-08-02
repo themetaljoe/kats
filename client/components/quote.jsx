@@ -30,6 +30,7 @@ export default class QuoteForm extends React.Component {
       <div className="page">
         <div className="layout quote">
           <FixedHeader />
+          <a href="/loans"><h3>Do you have questions concerning what we buy or accept as collatoral for loans? Please click here.</h3></a>
           <div className="quote-form">
             <h1>Interested getting some cash for your gear?</h1>
             <p>Fill out the form below and we will call or email you with a price. Please include pictures of the item so that we can give you a better estimate.</p>
