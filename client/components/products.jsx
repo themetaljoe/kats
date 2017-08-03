@@ -15,11 +15,12 @@ export default class Products extends React.Component {
   }
 
   componentDidMount() {
-    Meteor.call('getEbayProducts', (err, products) => {
+    Meteor.call('getEbayProducts', 'katsguitars', (err, products) => {
       if (!err) {
         this.setState({ products: this.state.products.concat(products) });
       }
     });
+
     Meteor.call('getEbayProducts', 'sakinterests', (err, products) => {
       if (!err) {
         this.setState({ products: this.state.products.concat(products) });
