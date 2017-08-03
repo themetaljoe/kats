@@ -8,7 +8,12 @@ export default class QuoteForm extends React.Component {
     super();
     this.state = {
       form: {},
+      images: [],
     }
+  }
+
+  handleFile(e) {
+    this.setState({ images: this.state.images.concat(e.target.files[0]).filter(file => file) });
   }
 
   getStateObject(key, val) {
@@ -22,7 +27,7 @@ export default class QuoteForm extends React.Component {
   }
 
   submit() {
-    console.log(this.state.form)
+    console.log(this.state.form, this.state.images)
   }
 
   render() {
@@ -40,8 +45,12 @@ export default class QuoteForm extends React.Component {
             {this.getField('Product Name')}
             {this.getField('Product Seriel Number')}
             {this.getField('Condition of item')}
-            <AvatarEditor />
-            <button onClick={() => this.submit()}>GET A QUOTE</button>
+            {
+              this.state.images.map(img => <img className="upload-preview" src={window.URL.createObjectURL(img)} />)
+            }
+            <button className="upload-button" onClick={() => $('#file-upload').click()}>UPLOAD IMAGE</button>
+            <button className="quote-submit" onClick={() => this.submit()}>GET A QUOTE</button>
+            <input id="file-upload" onChange={(e) => this.handleFile(e)}style={{display: 'none'}} type='file' />
           </div>
           <Location />
         </div>

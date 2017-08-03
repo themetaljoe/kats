@@ -19,6 +19,7 @@ export default class Faq extends React.Component {
 
     return (
       <div className="faq" id="faq">
+        <h1 className="title">General Pawn Q & A</h1>
         <input className="input-box" onChange={ e => this.setState({query:e.target.value})} />
         <br />
         {
@@ -31,6 +32,12 @@ export default class Faq extends React.Component {
                 <div className="answers">
                   <blockquote>{qaPair.answer}</blockquote>
                 </div>
+                <a href='/products'>
+                  <button>SHOP</button>
+                </a>
+                <a href='/quote'>
+                  <button>PAWN</button>
+                </a>
               </div>
             );
           })

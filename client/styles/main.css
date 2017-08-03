@@ -2,6 +2,8 @@
 * {
   margin: 0;
   padding: 0;
+  outline: none;
+  border: none;
 }
 /* Base styles for the app */
 .page, body, html {
@@ -84,6 +86,7 @@
   color: white;
   text-align: center;
   font-size: 20px;
+  font-family: 'Saira Extra Condensed', sans-serif;
   text-shadow: 0 0 15px #353535, 0 0 15px black;
 }
 .call-to-action{
@@ -350,7 +353,7 @@
 }
 .products{
   min-height: 1000px;
-  background: #efefef;
+  background: white;
   padding-top: 240px;
   position: absolute;
   z-index: 1;
@@ -367,11 +370,12 @@
 .a-product{
   text-align: center;
   display: inline-block;
-  width: 20%;
+  width: calc(25% - 2px);
   padding: 20px;
   box-sizing: border-box;
   cursor: pointer;
   color: #FF9800;
+  margin: 1px;
 }
 .a-product.focus{
   width: 100%;
@@ -395,7 +399,7 @@
   background-color: rgba(0, 0, 0, 0.0401);
 }
 .a-product.odd {
-  background-color:rgba(0, 0, 0, 0.0);
+  background-color:rgba(0, 0, 0, 0.02);
 }
 .a-product img{
   height: 100px;
@@ -462,21 +466,31 @@
   font-size: 20px;
 }
 /* Begin Quote route styles */
+.upload-preview{
+  margin-top: 20px;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+}
 .quote{
   padding: 100px 20px;
   background: white;
 }
+.quote-form h1{
+  font-family: 'Saira Extra Condensed', sans-serif;
+}
 .quote-form {
+  font-family: 'Saira Extra Condensed', sans-serif;
   width: 100%;
   display: inline-block;
   padding: 20px;
   margin-bottom: 40px;
   box-sizing: border-box;
-  background-color: #039BE5;
-  color: white;
+  color: black;
 }
 .quote-form p{
   margin-top: 10px;
+  font-family: 'Roboto', sans-serif;
 }
 .quote-form div{
   margin-top: 30px;
@@ -488,23 +502,19 @@
 }
 .quote-form > div > input{
   position: absolute;
-  padding: 5px 10px 5px 10px;
+  padding: 10px;
   font-size: 24px;
   outline: none;
   border: none;
-  top: 0;
+  top: -5px;
   left: 300px;
   width: calc(100% - 330px);
-  background-color: white;
+  background-color: #efefef;
 }
-.quote button:hover{
-  background: white;
-  color: #FF5722;
-}
-.quote button{
+.quote .quote-submit{
   margin-top: 40px;
-  background: white;
-  color: #FF5722;
+  background: #FF5722;
+  color: white;
   right: 0;
   font-size: 30px;
   padding: 10px;
@@ -527,6 +537,7 @@
 }
 .quote > a h3{
   padding-bottom: 20px;
+  margin-left: 20px;
 }
 .image-uploader input{
   position: absolute !important;
@@ -553,9 +564,10 @@
   clear: both;
 }
 .upload-button{
-  background: white;
+  display: block;
+  background: #222;
   padding: 20px;
-  color: black;
+  color: white;
   position: relative;
   top: 10px;
   margin-top: 10px;
@@ -652,6 +664,19 @@
   margin-bottom: 20px;
 }
 /* Begin faq styles */
+.a-qa-pair button{
+  background: #039BE5;
+  color: white;
+  right: 0;
+  font-size: 20px;
+  padding: 5px;
+  outline: none;
+  border: none;
+  margin-right: 20px;
+  position: relative;
+  width: 100px;
+  cursor: pointer;
+}
 .input-box{
   margin-left: 20px;
   padding: 10px;
@@ -660,12 +685,23 @@
   width: calc(100% - 40px);
   box-sizing: border-box;
   position: sticky;
+  font-family: 'Saira Extra Condensed', sans-serif;
+}
+.about h1,.gear-list h1{
+  font-family: 'Saira Extra Condensed', sans-serif;
+  font-size: 40px;
+}
+.faq .title{
+  padding-left: 20px;
+  font-size: 40px;
+  margin-bottom: 10px;
 }
 .faq{
   background-color: white;
   padding: 20px;
   padding-top: 70px;
 }
+
 .faq .questions{
 }
 .questions h2{
@@ -745,7 +781,7 @@ blockquote em{
 /* Begin the wonders of media queries */
 @media (max-width: 1250px) {
   .a-product{
-    width: 50%;
+    width: calc(50% - 2px);
   }
   .gear-list li{
     width: 33%;
@@ -766,7 +802,7 @@ blockquote em{
 }
 @media (max-width: 780px) {
   .a-product{
-    width: 100%;
+    width: calc(100% - 2px);
   }
   .a-gear-category img{
     height: 50px;
