@@ -4,7 +4,7 @@ import faq from '../constants/faq';
 export default class Faq extends React.Component {
   render() {
     return (
-      <div className="faq">
+      <div className="faq" id="faq">
         {
           faq.map(qaPair => {
             return (
