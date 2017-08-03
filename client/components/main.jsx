@@ -3,8 +3,14 @@ import FixedHeader from './header';
 import MainAboveFold from './main-above-fold';
 import About from './about';
 import GearList from './gear';
+import Location from './location';
 
 export default class Home extends React.Component {
+  componentDidMount() {
+    if(window.location.hash !== '') {
+      window.scrollTo(0, $(window.location.hash).offset().top - 70)
+    }
+  }
   render() {
     return (
       <div className="page">
@@ -14,6 +20,7 @@ export default class Home extends React.Component {
           <MainAboveFold />
           <About />
           <GearList />
+          <Location />
         </div>
       </div>
     );

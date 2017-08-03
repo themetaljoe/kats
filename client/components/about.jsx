@@ -1,39 +1,34 @@
 import React from 'react';
+/* About Info is the constant where the content for this page is kept
+ *   go to '../constants/about' to edit the verbiage on this section
+ * * */
+import AboutInfo from '../constants/about';
 
+/* Simple static component for the #about section
+ *   getInfo
+ *     returns [Array] of <JSX-Layouts />
+ *       content is based on an { Object } with keys "text" and "img"
+ *         text(String):  the text to display on the page
+ *         img(String): the path of the image
+ * * * */
 export default class About extends React.Component {
+  getInfo() {
+    return AboutInfo.map(info => (
+      <div className="column" key={`info-${info.text}`}>
+        <div className="about-content">
+          <img src={info.img} />
+          <p>{info.text}</p>
+        </div>
+      </div>
+    ));
+  }
+
   render() {
     return (
       <div>
         <div className="about" id="about">
           <h1>KAT'S GUITARS: INSTRUMENTS, REPAIRS, LESSONS, OH MY!</h1>
-          <div className="column">
-            <div className="about-content">
-              <img src="texasflag.png" />
-              <p>We are a Full Line Music Store serving
-                The Woodlands, Spring, Conroe, and Willis, Texas.</p>
-            </div>
-          </div>
-          <div className="column">
-            <div className="about-content">
-              <img src="guitarelectronics.png" />
-              <p>Stocked with hundreds of instrumets, pickups, pedals and parts
-                ready to go.</p>
-            </div>
-          </div>
-          <div className="column">
-            <div className="about-content">
-              <img src="musicnote.png" />
-              <p>As home of some of the best musicians in Houston, Kat's offers
-                a wide range of in-house lessons.</p>
-            </div>
-          </div>
-          <div className="column">
-            <div className="about-content">
-              <img src="screwdriver.png" />
-              <p>With long time experienced technicians that have played in the houston scene
-                we have years of experience.</p>
-            </div>
-          </div>
+          { this.getInfo() }
         </div>
         <div className='divider'></div>
       </div>
