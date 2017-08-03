@@ -2,7 +2,7 @@ export default [{
     text: 'We are a Full Line Music Store serving The Woodlands, Spring, Conroe, and Willis, Texas.',
     img: 'texasflag.png',
   },{
-    text: 'Stocked with hundreds of instrumets, pickups, pedals and parts ready to go.',
+    text: 'Stocked with hundreds of instruments, pickups, pedals and parts ready to go.',
     img: 'guitarelectronics.png',
   }, {
     text: 'As home of some of the best musicians in Houston, Kat\'s offers a wide range of in-house lessons.',
