@@ -5,15 +5,18 @@ export default class Faq extends React.Component {
   constructor() {
     super();
     this.state = {
-      query: "", 
+      query: "",
     };
-      
-    
   }
+
+  contains(sentence, query) {
+    return sentence.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+  }
+
   render() {
-    const filteredFaq = faq.filter(pair => 
-      pair.question.toLowerCase().indexOf(this.state.query.toLowerCase()) !== -1 || 
-      pair.answer.toLowerCase().indexOf(this.state.query.toLowerCase()) !== -1); 
+    const filteredFaq = faq
+      .filter(pair => this.contains(pair.question, this.state.query) || this.contains(pair.answer, this.state.query));
+
     return (
       <div className="faq" id="faq">
         <input className="input-box" onChange={ e => this.setState({query:e.target.value})} />

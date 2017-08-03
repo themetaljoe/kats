@@ -652,6 +652,15 @@
   margin-bottom: 20px;
 }
 /* Begin faq styles */
+.input-box{
+  margin-left: 20px;
+  padding: 10px;
+  font-size: 24px;
+  outline: none;
+  width: calc(100% - 40px);
+  box-sizing: border-box;
+  position: sticky;
+}
 .faq{
   background-color: white;
   padding: 20px;
