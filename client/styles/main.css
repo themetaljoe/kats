@@ -159,6 +159,7 @@
   height: 50px;
   clear: both;
 }
+<<<<<<< HEAD
 .hidden-menu{
   box-shadow: 0 4px 2px -2px #545545;
   position: absolute;
@@ -650,6 +651,87 @@
   margin-top: 10px;
   margin-bottom: 20px;
 }
+/* Begin faq styles */
+.faq{
+  background-color: white;
+  padding: 20px;
+}
+.faq .questions{
+}
+.questions h2{
+  font-size: 30px;
+  line-height: 30px;
+  margin-bottom: 20px;
+  color: black;
+  font-family: 'Saira Extra Condensed', sans-serif;
+}
+.faq .a-qa-pair{
+  width: 50%;
+  margin-bottom: 20px;
+  display: inline-block;
+  padding: 20px;
+  box-sizing: border-box;
+  vertical-align: top;
+}
+blockquote{
+  display:block;
+  background: #fff;
+  padding: 15px 20px 15px 45px;
+  margin: 0 0 20px;
+  position: relative;
+
+  /*Font*/
+  font-family: Georgia, serif;
+  font-size: 16px;
+  line-height: 1.2;
+  color: #666;
+  text-align: justify;
+
+  /*Borders - (Optional)*/
+  border-left: 15px solid #039BE5;
+  border-right: 2px solid #FF5722;
+
+  /*Box Shadow - (Optional)*/
+  -moz-box-shadow: 2px 2px 15px #ccc;
+  -webkit-box-shadow: 2px 2px 15px #ccc;
+  box-shadow: 2px 2px 15px #ccc;
+}
+
+blockquote::before{
+  content: "\201C"; /*Unicode for Left Double Quote*/
+
+  /*Font*/
+  font-family: Georgia, serif;
+  font-size: 60px;
+  font-weight: bold;
+  color: #999;
+
+  /*Positioning*/
+  position: absolute;
+  left: 10px;
+  top:5px;
+}
+
+blockquote::after{
+  /*Reset to make sure*/
+  content: "";
+}
+
+blockquote a{
+  text-decoration: none;
+  background: #eee;
+  cursor: pointer;
+  padding: 0 3px;
+  color: #c76c0c;
+}
+
+blockquote a:hover{
+ color: #666;
+}
+
+blockquote em{
+  font-style: italic;
+}
 /* Begin the wonders of media queries */
 @media (max-width: 1250px) {
   .a-product{
@@ -682,6 +764,10 @@
   }
 }
 @media (max-width: 750px) {
+  .faq .a-qa-pair{
+    width: 100%;
+  }
+
   .gear-list li{
     width: 50%;
   }

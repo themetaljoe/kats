@@ -4,6 +4,7 @@ import MainAboveFold from './main-above-fold';
 import About from './about';
 import GearList from './gear';
 import Location from './location';
+import Faq from './faq';
 
 export default class Home extends React.Component {
   componentDidMount() {
@@ -21,6 +22,7 @@ export default class Home extends React.Component {
           <About />
           <GearList />
           <Location />
+          <Faq />
         </div>
       </div>
     );
