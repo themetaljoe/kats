@@ -21,8 +21,8 @@ export default class Home extends React.Component {
           <MainAboveFold />
           <About />
           <GearList />
-          <Location />
           <Faq />
+          <Location />
         </div>
       </div>
     );

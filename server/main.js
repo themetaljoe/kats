@@ -10,7 +10,11 @@ var options = {
 };
 
 Meteor.methods({
-  getEbayProducts() {
+  getEbayProducts(user) {
+    console.log(user);
+    if (user) {
+      options.uri = `https://www.ebay.com/sch/${user}/m.html?_ipg=50&_sop=12&_rdc=1`;
+    }
     const ebayRequest = rp(options).then(($) => {
       const productNames = [];
       const productPaths = [];
