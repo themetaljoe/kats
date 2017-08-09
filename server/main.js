@@ -53,3 +53,21 @@ Meteor.methods({
     return ebayRequest;
   },
 });
+
+
+Meteor.startup(() => {
+  options = {
+    uri: 'https://onlineposting.e-foro.com/items_api/get_items',
+    qs: {
+      status: 'LISTED'
+    },
+    headers: {
+      'User-Agent': 'allpawn-autobot-optimus-prime',
+      'X-Authorization': `TOKEN ${Meteor.settings.PRODUCTS_API_TOKEN}`,
+    },
+    json: true,
+  }
+  rp(options).then((res) => {
+    console.log(res)
+  });
+});
