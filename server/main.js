@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
+import { exec } from 'child_process';
 import cheerio from 'cheerio';
 import rp from 'request-promise';
+
 
 var options = {
     uri: 'https://www.ebay.com/sch/katsguitars/m.html?_ipg=50&_sop=12&_rdc=1',
@@ -52,6 +54,7 @@ Meteor.methods({
 
     return ebayRequest;
   },
+
   getEforoProducts() {
     const options = {
       uri: 'https://onlineposting.e-foro.com/items_api/get_items',
@@ -93,6 +96,33 @@ Meteor.methods({
     return rp(options).then(res => {
       return Promise.resolve(res);
     }).catch(err => console.log('fuckery once again', err));
+  },
+
+  imageSearch(query) {
+    var options = {
+        uri: `https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=${query}`,
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36',
+        },
+
+        transform: function (body) {
+          return cheerio.load(body);
+        }
+    };
+
+    return rp(options)
+      .then(function ($) {
+        let result;
+        $('img').each((i, img) => {
+          if (i === 5) {
+            result = $(img).attr('src');
+          }
+        })
+        return Promise.resolve(result);
+      })
+      .catch(function (err) {
+        console.log(err)
+      });
   }
 });
 

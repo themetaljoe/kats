@@ -16,7 +16,13 @@ export default class Products extends React.Component {
 
   componentDidMount() {
     Meteor.call('getEforoProducts', (err, products) => {
-      console.log(products);
+      const productsByKat = {};
+      products.map(p => {
+        const cat = p.description.split(" ")[0];
+        const key = productsByKat[cat];
+        return key ? key.push(p) : productsByKat[cat] = [p];
+      });
+      console.log(productsByKat);
       if (!err) {
         this.setState({ products: this.state.products.concat(products) });
       }
