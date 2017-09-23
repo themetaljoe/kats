@@ -52,22 +52,71 @@ Meteor.methods({
 
     return ebayRequest;
   },
+  getEforoProducts() {
+    const options = {
+      uri: 'https://onlineposting.e-foro.com/items_api/get_items',
+      qs: { status: 'IN_QUEUE' },
+      headers: {
+        'User-Agent': 'allpawn-autobot-optimus-prime',
+        'X-Authorization': `TOKEN ${Meteor.settings.PRODUCTS_API_TOKEN}`,
+      },
+      json: true,
+    }
+    return new Promise((resolve, reject) => {
+      rp(options)
+        .then(results => {
+          if(results.page_count === 1) {
+            resolve(results.items);
+          } else {
+            resolve(keepGettingShit(2, results.page_count, results.items))
+          }
+        })
+    });
+  },
+  uploadImageTest() {
+    const options = {
+      uri: 'https://onlineposting.e-foro.com/items_api/add_photo',
+      body: {
+        external_id: "689D1B89-4073-4B06-A6B4-BFC4AFE47D4A",
+        photo_url: "https://www.smarthomedb.com/files/product/watermark/amazon-echo_10.jpg"
+      },
+      qs: {
+        external_id: "689D1B89-4073-4B06-A6B4-BFC4AFE47D4A",
+        photo_url: "https://www.smarthomedb.com/files/product/watermark/amazon-echo_10.jpg"
+      },
+      headers: {
+        'User-Agent': 'allpawn-autobot-optimus-prime',
+        'X-Authorization': `TOKEN ${Meteor.settings.PRODUCTS_API_TOKEN}`,
+      },
+      json: true,
+    };
+    return rp(options).then(res => {
+      return Promise.resolve(res);
+    }).catch(err => console.log('fuckery once again', err));
+  }
 });
 
-
-Meteor.startup(() => {
-  options = {
+function keepGettingShit(page, pageCount, arrayOfProducts) {
+  let productsCopy = arrayOfProducts;
+  const options = {
     uri: 'https://onlineposting.e-foro.com/items_api/get_items',
-    qs: {
-      status: 'LISTED'
-    },
+    qs: { status: 'IN_QUEUE', page },
     headers: {
       'User-Agent': 'allpawn-autobot-optimus-prime',
       'X-Authorization': `TOKEN ${Meteor.settings.PRODUCTS_API_TOKEN}`,
     },
     json: true,
   }
-  rp(options).then((res) => {
-    console.log(res)
+  return rp(options).then(results => {
+    productsCopy = arrayOfProducts.concat(results.items);
+    if (page + 1 > pageCount) {
+      return Promise.resolve(productsCopy);
+    } else {
+      return keepGettingShit(page + 1, pageCount, productsCopy)
+    }
   });
-});
+}
+
+function uploadImageTest() {
+}
+

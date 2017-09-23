@@ -363,14 +363,15 @@
 .a-product.focus:hover{
   background-color: transparent;
 }
-
 .a-product:hover{
   background-color: #efefef;
 }
 .a-product{
   text-align: center;
   display: inline-block;
+  vertical-align: top;
   width: calc(25% - 2px);
+  min-height: 190px;
   padding: 20px;
   box-sizing: border-box;
   cursor: pointer;

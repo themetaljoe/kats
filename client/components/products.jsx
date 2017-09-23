@@ -15,13 +15,8 @@ export default class Products extends React.Component {
   }
 
   componentDidMount() {
-    Meteor.call('getEbayProducts', 'katsguitars', (err, products) => {
-      if (!err) {
-        this.setState({ products: this.state.products.concat(products) });
-      }
-    });
-
-    Meteor.call('getEbayProducts', 'sakinterests', (err, products) => {
+    Meteor.call('getEforoProducts', (err, products) => {
+      console.log(products);
       if (!err) {
         this.setState({ products: this.state.products.concat(products) });
       }
@@ -37,10 +32,10 @@ export default class Products extends React.Component {
           <div
             className="a-product focus"
           >
-            <h1>{product.name}</h1>
-            <img src={product.path} />
-            <h2>{product.price}</h2>
-            <h3>{product.info}</h3>
+            <h1>{product.characteristics.manufacturer + ': ' + product.characteristics.model}</h1>
+            { product.photo_urls.length > 0 ? <img src={product.photo_urls[0]} /> : '' }
+            <h2>${parseFloat(product.value).toFixed(2)}</h2>
+            <h3>{product.description.replace(/ *\([^)]*\) */g, "").split("WAS")[0]}</h3>
           </div>
         </div>
       </div>
@@ -49,7 +44,7 @@ export default class Products extends React.Component {
 
   render() {
     const loading = this.state.products.length === 0;
-    const filteredProducts = this.state.products.filter(product => product.name.toLowerCase().indexOf(this.state.query.toLowerCase()) > -1);
+    const filteredProducts = this.state.products.filter(product => product.title.toLowerCase().indexOf(this.state.query.toLowerCase()) > -1);
     return  (
       <div className="page">
         <div className="background"></div>
@@ -71,10 +66,10 @@ export default class Products extends React.Component {
                 className={`a-product ${i % 2 === 0 ?  'even' : 'odd' }`}
                 onClick={() => { window.scroll(0, 0); this.setState({ focusProduct: product, focusOpen: true }); }}
               >
-                <h1>{product.name}</h1>
-                <img src={product.path} />
-                <h2>{product.price}</h2>
-                <h3>{product.info}</h3>
+                <h1>{product.characteristics.manufacturer + ': ' + product.characteristics.model}</h1>
+                { product.photo_urls.length > 0 ? <img src={product.photo_urls[0]} /> : '' }
+                <h2>${parseFloat(product.value).toFixed(2)}</h2>
+                <h3>{product.description.replace(/ *\([^)]*\) */g, "").split("WAS")[0].replace("Brand:", '\nBrand:')}</h3>
               </div>
             ))
           }
