@@ -99,13 +99,29 @@ export default class Product extends React.Component {
 
   render() {
     const { product } = this.props;
+    const { expanded, hasChanges } = this.state;
     return (
       <div ref={el => this.el = el} className='admin-product'>
-        <div className="collapse-product" onClick={e => this.setState({ expanded: !this.state.expanded })}>{this.state.expanded ? '-' : '+'}</div>
-        { this.state.hasChanges ? <div className="folder-container"><div className="folder" onClick={e => this.saveTransform()}></div></div> : ''}
-        <div className={`admin-product-content ${this.state.expanded ? '' : 'collapsed'}`}>
+        <div
+          className="collapse-product"
+          onClick={e => this.setState({ expanded: !expanded })}
+        >
+          {expanded ? '-' : '+'}
+        </div>
+        {
+          hasChanges ?
+            (
+              <div className="folder-container">
+                <div className="folder" onClick={e => this.saveTransform()}>
+                </div>
+              </div>
+            ) : ''
+        }
+        <div className={`admin-product-content ${expanded ? '' : 'collapsed'}`}>
           {
-            this.state.expanded ? this.layoutFromObject(product, 'product') : <div className='admin-product-collapse-content'>{product.title}</div>
+            expanded ?
+              this.layoutFromObject(product, 'product') :
+              <div className='admin-product-collapse-content'>{product.title}</div>
           }
         </div>
       </div>
