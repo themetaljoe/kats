@@ -449,6 +449,10 @@
   z-index: 1;
   background-color: rgba(55, 55, 55, 1);
 }
+.products{
+  overflow: hidden;
+  min-height: 100%;
+}
 .products-search{
   padding: 20px;
   font-size: 30px;
@@ -934,6 +938,7 @@ blockquote em{
   overflow: scroll;
 }
 .cart-item{
+  position: relative;
   padding: 10px;
   border: 1px solid white;
   margin: 10px;
@@ -945,21 +950,27 @@ blockquote em{
 }
 .cart-item .value{
   margin: 10px 0;
-  color: #C5E1A5;
+  color: #2E7D32;
   display: block;
 }
 .cart-item .description{
   margin: 10px 0;
   display: block;
 }
+.cart-item button{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
 .cart-item button, .overview-checkout{
+  border: 2px solid black;
   background-color: #E64A19;
   color: white;
-  padding: 20px;
+  padding: 10px 20px;
   font-size: 16px;
-  border-radius: 5px;
-  border: none;
-  position: relative;
+}
+.overview-checkout{
+  margin-left: 20px;
 }
 .admin-product{
   padding: 20px;
@@ -1079,4 +1090,74 @@ blockquote em{
   width: auto;
   display: inline-block;
   vertical-align: middle;
+}
+.checkout-component{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background: white;
+  box-sizing: border-box;
+  padding: 20px;
+  overflow: scroll;
+}
+.checkout-products .cart-item{
+  margin: 10px 20px;
+  border: 2px #afafaf solid;
+  background: white;
+}
+.checkout-products{
+  padding-top: 10px;
+  background: #efefef;
+  box-shadow: 0 0 10px #878787;
+}
+.checkout-total{
+  background: white;
+  color: green;
+  border-top: 2px dashed #afafaf;
+  padding: 20px;
+  margin-top: 20px;
+}
+.checkout-form-line{
+  display: inline-block;
+  position: relative;
+  padding-top: 20px;
+  width: 50%;
+}
+.checkout-label{
+  font-size: 20px;
+  font-weight: 800;
+}
+.checkout-input{
+  width: calc(100% - 40px);
+  display: block;
+  position: relative;
+  margin: 5px 0 5px 0;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #afafaf;
+  background: white;
+  text-align: left;
+  font-size: 16px;
+}
+.form-main-section{
+  display: block;
+  font-size: 40px;
+  border-bottom: 2px #afafaf dashed;
+  padding: 20px;
+}
+.checkout-form{
+  margin-top: 20px;
+  background: #efefef;
+  box-shadow: 0 0 10px #656565;
+}
+.checkout-form button{
+  margin: 20px;
+  border: 2px solid black;
+  background: #03A9F4;
+  color: white;
+  font-size: 16px;
+  width: calc(100% - 40px);
+  padding: 10px 20px;
+  cursor: pointer;
 }

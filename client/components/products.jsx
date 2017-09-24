@@ -3,6 +3,7 @@ import FixedHeader from './header';
 import { Meteor } from 'meteor/meteor';
 import Location from './location';
 import { List } from 'react-virtualized'
+import Checkout from './checkout';
 
 export default class Products extends React.Component {
   constructor() {
@@ -58,7 +59,6 @@ export default class Products extends React.Component {
   }
 
   render() {
-    console.log(this.state.cart);
     const loading = this.state.products.length === 0;
     const filteredProducts = this.state.products.filter(product => product.title.toLowerCase().indexOf(this.state.query.toLowerCase()) > -1);
     const shoppingCartOverview = !this.state.showCart ? '' : (
@@ -81,7 +81,7 @@ export default class Products extends React.Component {
             </div>
           ))
         }
-        <button className='overview-checkout'>Checkout</button>
+        <button className='overview-checkout' onClick={e => this.setState({ showCheckout: true })}>Checkout</button>
       </div>
     )
     return  (
@@ -117,10 +117,18 @@ export default class Products extends React.Component {
             rowHeight={300}
             rowRenderer={this.rowRenderer}
           />
-          <Location />
         </div>
+        { this.state.showCheckout ? <Checkout update={this.updateCart.bind(this)} close={this.closeCart.bind(this)} cart={this.state.cart} /> : '' }
       </div>
     );
+  }
+
+  closeCart() {
+    this.setState({ showCheckout: false });
+  }
+
+  updateCart(cart) {
+    this.setState({ cart });
   }
 
   rowRenderer ({
@@ -154,8 +162,11 @@ export default class Products extends React.Component {
             <h3>{product.description.replace(/ *\([^)]*\) */g, "").split("WAS")[0].replace("Brand:", '\nBrand:')}</h3>
           </div>
           <div className='shopping-cart-buttons'>
-            <button className="add-to-cart" onClick={e => this.setState({cart: this.state.cart.concat([product])})}>Add to cart</button>
-            <button className="add-to-cart checkout" onClick={e => this.setState({cart: this.state.cart.concat([product])})}>Add to cart and Checkout</button>
+            <button
+              className="add-to-cart"
+              onClick={e => this.state.cart.filter(p => p.characteristics.sku === product.characteristics.sku && product.quantity === '1').length === 0 ? this.setState({cart: this.state.cart.concat([product])}) : '' }
+            >Add to cart</button>
+            <button className="add-to-cart checkout" onClick={e => this.setState({showCheckout: true, cart: this.state.cart.concat([product])})}>Add to cart and Checkout</button>
           </div>
         </div>
       </div>

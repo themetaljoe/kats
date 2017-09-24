@@ -23,7 +23,6 @@ export default class Login extends React.Component {
       const parentKey = $($target).parent().attr('class');
       const hasParentKey = parentKey !== 'product';
       const key = hasParentKey ? `product.${parentKey}.${currentKey}` : `product.${currentKey}`
-      console.log(key, value)
       const { changedObject } = this;
       if (key.indexOf('photo_urls') > -1) {
         changedObject.photo_urls = [value];
@@ -57,7 +56,7 @@ export default class Login extends React.Component {
                     photo_urls
                   </div>
                   <div className="product-value" contentEditable="true" >
-                    https://sample.url.com/pig.png
+                    { obj[key][0] ? obj[key][0] : 'https://sample.url.com/pig.png' }
                   </div>
                 </div>
               );
@@ -87,16 +86,9 @@ export default class Login extends React.Component {
       if (!err) {
         changedObject._id = res;
         this.setState({ hasChanges: false, changedObject })
-        this.getTransforms();
         this.props.updateTransforms();
       }
     });
-  }
-
-  getTransforms() {
-    Meteor.call('getTransforms', (err, res) => {
-      console.log(err, res);
-    })
   }
 
   render() {
