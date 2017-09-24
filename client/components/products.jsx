@@ -2,30 +2,39 @@ import React from 'react';
 import FixedHeader from './header';
 import { Meteor } from 'meteor/meteor';
 import Location from './location';
+import { List } from 'react-virtualized'
 
 export default class Products extends React.Component {
   constructor() {
     super();
     this.state = {
+      cart: [],
+      showCart: false,
       products: [],
+      transforms: [],
       query: '',
       focusProduct: {},
       focusOpen: false,
     };
+    this.rowRenderer = this.rowRenderer.bind(this);
   }
 
   componentDidMount() {
     Meteor.call('getEforoProducts', (err, products) => {
       const productsByKat = {};
+
       products.map(p => {
         const cat = p.description.split(" ")[0];
         const key = productsByKat[cat];
         return key ? key.push(p) : productsByKat[cat] = [p];
       });
-      console.log(productsByKat);
+
       if (!err) {
         this.setState({ products: this.state.products.concat(products) });
       }
+    });
+    Meteor.call('getTransforms', (err, transforms) => {
+      if (!err) { this.setState({ transforms }) }
     });
   }
 
@@ -49,11 +58,37 @@ export default class Products extends React.Component {
   }
 
   render() {
+    console.log(this.state.cart);
     const loading = this.state.products.length === 0;
     const filteredProducts = this.state.products.filter(product => product.title.toLowerCase().indexOf(this.state.query.toLowerCase()) > -1);
+    const shoppingCartOverview = !this.state.showCart ? '' : (
+      <div className="shopping-cart-overview">
+        {
+          this.state.cart.map(p => (
+            <div className='cart-item'>
+              { p.photo_urls.length > 0 ? <img src={p.photo_urls[0]} /> : '' }
+              <span className='title'>{p.characteristics.manufacturer + ': ' + p.characteristics.model}</span>
+              <span className='value'>${(+p.value).toFixed(2)}</span>
+              <span className='description'>{p.description.replace(/ *\([^)]*\) */g, "").split("WAS")[0]}</span>
+              <button
+                className="remove-item"
+                onClick={e =>
+                    this.setState({
+                      cart: this.state.cart.filter(prod => prod.characteristics.sku !== p.characteristics.sku)
+                    })
+                }
+              >REMOVE</button>
+            </div>
+          ))
+        }
+        <button className='overview-checkout'>Checkout</button>
+      </div>
+    )
     return  (
       <div className="page">
+        { shoppingCartOverview }
         <div className="background"></div>
+
         <div className="products">
           <FixedHeader />
           { this.state.focusOpen ? this.getProductOverlayLayout() : <span /> }
@@ -63,25 +98,67 @@ export default class Products extends React.Component {
             </div>
             <div className='search-status'>
               { this.state.query !== '' ? <div>Showing <span className='query-count'>{filteredProducts.length}</span> result(s) for <span className="query">{this.state.query}</span></div> : <div>Showing all <span className='query-count'>{filteredProducts.length}</span> results</div> }
+              <div className="cart-count">{this.state.cart.length}</div>
+              <div className="cart-total">{'$' + this.state.cart.reduce((acc, next) => +acc + +next.value, 0.00).toFixed(2)}</div>
+              <div className="icon-cart" onClick={e => this.setState({showCart: !this.state.showCart})}>
+                <div className="cart-line-1"></div>
+                <div className="cart-line-2"></div>
+                <div className="cart-line-3"></div>
+                <div className="cart-wheel"></div>
+              </div>
             </div>
           </div>
           { loading ? <div className="loader">Loading...</div> : <div></div>}
-          {
-            filteredProducts.map((product, i) => (
-              <div
-                className={`a-product ${i % 2 === 0 ?  'even' : 'odd' }`}
-                onClick={() => { window.scroll(0, 0); this.setState({ focusProduct: product, focusOpen: true }); }}
-              >
-                <h1>{product.characteristics.manufacturer + ': ' + product.characteristics.model}</h1>
-                { product.photo_urls.length > 0 ? <img src={product.photo_urls[0]} /> : '' }
-                <h2>${parseFloat(product.value).toFixed(2)}</h2>
-                <h3>{product.description.replace(/ *\([^)]*\) */g, "").split("WAS")[0].replace("Brand:", '\nBrand:')}</h3>
-              </div>
-            ))
-          }
+          <List
+            width={window.innerWidth}
+            height={window.innerHeight}
+            type={this.state.type}
+            rowCount={filteredProducts.length}
+            rowHeight={300}
+            rowRenderer={this.rowRenderer}
+          />
           <Location />
         </div>
       </div>
     );
+  }
+
+  rowRenderer ({
+    key,         // Unique key within array of rows
+    index,       // Index of row within collection
+    isScrolling, // The List is currently being scrolled
+    isVisible,   // This row is visible within the List (eg it is not an overscanned row)
+    style        // Style object to be applied to row (to position it)
+  }) {
+    let { products } = this.state;
+    const { query } = this.state;
+    const filteredProducts = this.state.products.filter(product => product.title.toLowerCase().indexOf(this.state.query.toLowerCase()) > -1);
+    const asProduct = filteredProducts[index];
+    const isTransform = this.state.transforms.filter(prod => prod.characteristics.sku === asProduct.characteristics.sku);
+    const product = isTransform.length > 0 ? isTransform[0] : asProduct;
+
+    return (
+      <div
+        className={`a-product ${index % 2 === 0 ?  'even' : 'odd' }`}
+        key={key}
+        style={style}
+      >
+        <div
+        >
+          <div className='image-price'>
+            {product.photo_urls.length > 0 ? <img src={product.photo_urls[0]} /> : '' }
+            <h2>${parseFloat(product.value).toFixed(2)}</h2>
+          </div>
+          <div className='product-content'>
+            <h1>{product.characteristics.manufacturer + ': ' + product.characteristics.model}</h1>
+            <h3>{product.description.replace(/ *\([^)]*\) */g, "").split("WAS")[0].replace("Brand:", '\nBrand:')}</h3>
+          </div>
+          <div className='shopping-cart-buttons'>
+            <button className="add-to-cart" onClick={e => this.setState({cart: this.state.cart.concat([product])})}>Add to cart</button>
+            <button className="add-to-cart checkout" onClick={e => this.setState({cart: this.state.cart.concat([product])})}>Add to cart and Checkout</button>
+          </div>
+        </div>
+      </div>
+    )
   }
 };

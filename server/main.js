@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { exec } from 'child_process';
 import cheerio from 'cheerio';
 import rp from 'request-promise';
-
+import { Transforms } from './collections/transforms/collection';
 
 var options = {
     uri: 'https://www.ebay.com/sch/katsguitars/m.html?_ipg=50&_sop=12&_rdc=1',
@@ -68,14 +68,15 @@ Meteor.methods({
     return new Promise((resolve, reject) => {
       rp(options)
         .then(results => {
+          resolve(results.items);
           if(results.page_count === 1) {
-            resolve(results.items);
           } else {
-            resolve(keepGettingShit(2, results.page_count, results.items))
+            // resolve(keepGettingShit(2, results.page_count, results.items))
           }
         })
     });
   },
+
   uploadImageTest() {
     const options = {
       uri: 'https://onlineposting.e-foro.com/items_api/add_photo',
@@ -93,6 +94,7 @@ Meteor.methods({
       },
       json: true,
     };
+
     return rp(options).then(res => {
       return Promise.resolve(res);
     }).catch(err => console.log('fuckery once again', err));
@@ -123,7 +125,19 @@ Meteor.methods({
       .catch(function (err) {
         console.log(err)
       });
-  }
+  },
+
+  login(un, pw) {
+    return un === Meteor.settings.ADMIN_LOGIN_UN && pw === Meteor.settings.ADMIN_LOGIN_PW;
+  },
+
+  saveTransform(transform) {
+    return Transforms.upsert({'_id': transform._id }, transform).insertedId;
+  },
+
+  getTransforms() {
+    return Transforms.find().fetch();
+  },
 });
 
 function keepGettingShit(page, pageCount, arrayOfProducts) {
@@ -146,7 +160,3 @@ function keepGettingShit(page, pageCount, arrayOfProducts) {
     }
   });
 }
-
-function uploadImageTest() {
-}
-
