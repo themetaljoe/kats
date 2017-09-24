@@ -3,7 +3,7 @@ import Home from './components/main';
 import Products from './components/products';
 import Quote from './components/quote';
 import Loans from './components/loans';
-import Login from './components/login';
+import Login from './components/admin/login';
 
 const routes = {
   '/': Home,

@@ -2,7 +2,8 @@ import React from 'react';
 import deepmerge from 'deepmerge';
 /* suppress react warnings about content editable */
 window.process.env.NODE_ENV = 'production';
-export default class Login extends React.Component {
+
+export default class Product extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -11,8 +12,10 @@ export default class Login extends React.Component {
     }
     this.changedObject = {};
   }
+
   componentWillMount() {
-    this.setState({ changedObject: this.props.product });
+    const { product } = this.props;
+    this.setState({ changedObject: product });
   }
 
   componentDidMount() {
@@ -24,6 +27,7 @@ export default class Login extends React.Component {
       const hasParentKey = parentKey !== 'product';
       const key = hasParentKey ? `product.${parentKey}.${currentKey}` : `product.${currentKey}`
       const { changedObject } = this;
+
       if (key.indexOf('photo_urls') > -1) {
         changedObject.photo_urls = [value];
       } else if (hasParentKey) {
@@ -34,7 +38,9 @@ export default class Login extends React.Component {
       } else {
         changedObject[currentKey] = value;
       }
+
       this.changedObject = changedObject;
+
       if (!this.state.hasChanges) {
         this.setState({ hasChanges: true });
       }
