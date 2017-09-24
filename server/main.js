@@ -57,24 +57,21 @@ Meteor.methods({
     return ebayRequest;
   },
 
-  getEforoProducts() {
+  getEforoProducts(page) {
     const options = {
       uri: 'https://onlineposting.e-foro.com/items_api/get_items',
-      qs: { status: 'IN_QUEUE' },
+      qs: { status: 'IN_QUEUE', page },
       headers: {
         'User-Agent': 'allpawn-autobot-optimus-prime',
         'X-Authorization': `TOKEN ${Meteor.settings.PRODUCTS_API_TOKEN}`,
       },
       json: true,
     }
+
     return new Promise((resolve, reject) => {
       rp(options)
         .then(results => {
-          resolve(results.items);
-          if(results.page_count === 1) {
-          } else {
-            // resolve(keepGettingShit(2, results.page_count, results.items))
-          }
+          resolve({ items: results.items, pageCount: results.page_count, page });
         })
     });
   },
@@ -231,24 +228,3 @@ Meteor.methods({
     })
   }
 });
-
-function keepGettingShit(page, pageCount, arrayOfProducts) {
-  let productsCopy = arrayOfProducts;
-  const options = {
-    uri: 'https://onlineposting.e-foro.com/items_api/get_items',
-    qs: { status: 'IN_QUEUE', page },
-    headers: {
-      'User-Agent': 'allpawn-autobot-optimus-prime',
-      'X-Authorization': `TOKEN ${Meteor.settings.PRODUCTS_API_TOKEN}`,
-    },
-    json: true,
-  }
-  return rp(options).then(results => {
-    productsCopy = arrayOfProducts.concat(results.items);
-    if (page + 1 > pageCount) {
-      return Promise.resolve(productsCopy);
-    } else {
-      return keepGettingShit(page + 1, pageCount, productsCopy)
-    }
-  });
-}

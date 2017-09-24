@@ -17,7 +17,7 @@ export default class Dashboard extends React.Component {
 
     if (products.length === 0 && !this.gettingProducts) {
       this.gettingProducts = true;
-      this.getProducts();
+      this.getProducts(1);
       this.getTransforms();
     }
   }
@@ -47,17 +47,22 @@ export default class Dashboard extends React.Component {
           products={products}
         />
         {
-          filtered.map(p => <Product updateTransforms={this.getTransforms.bind(this)} product={p} />)
+          filtered.map(p => <Product key={p.characteristics.sku} updateTransforms={this.getTransforms.bind(this)} product={p} />)
         }
         { products.length === 0 ? 'loading ...' : '' }
       </div>
     )
   }
 
-  getProducts() {
-    Meteor.call('getEforoProducts', (err, products) => {
+  getProducts(page) {
+    Meteor.call('getEforoProducts', page, (err, products) => {
+      const { items, pageCount } = products;
+
       if (!err) {
-        this.setState({ products: this.state.products.concat(products) });
+        this.setState({ products: this.state.products.concat(items) });
+        if (page < pageCount) {
+          this.getProducts(page + 1);
+        }
       }
     });
   }

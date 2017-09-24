@@ -20,24 +20,26 @@ export default class Products extends React.Component {
     this.rowRenderer = this.rowRenderer.bind(this);
   }
 
-  componentDidMount() {
-    Meteor.call('getEforoProducts', (err, products) => {
-      const productsByKat = {};
-
-      products.map(p => {
-        const cat = p.description.split(" ")[0];
-        const key = productsByKat[cat];
-        return key ? key.push(p) : productsByKat[cat] = [p];
-      });
+  getEforoProducts(page) {
+    Meteor.call('getEforoProducts', page, (err, products) => {
+      const { items, pageCount } = products;
 
       if (!err) {
-        this.setState({ products: this.state.products.concat(products) });
+        this.setState({ products: this.state.products.concat(items) });
+        if (page < pageCount) {
+          this.getEforoProducts(page + 1);
+        }
       }
     });
+  }
+
+  componentDidMount() {
+    this.getEforoProducts(1)
     Meteor.call('getTransforms', (err, transforms) => {
       if (!err) { this.setState({ transforms }) }
     });
   }
+
 
   getProductOverlayLayout() {
     const product = this.state.focusProduct;
