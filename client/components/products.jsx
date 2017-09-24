@@ -3,7 +3,7 @@ import FixedHeader from './header';
 import { Meteor } from 'meteor/meteor';
 import Location from './location';
 import { List } from 'react-virtualized'
-import Checkout from './checkout';
+import Checkout from './checkout/checkout';
 
 export default class Products extends React.Component {
   constructor() {
@@ -81,7 +81,7 @@ export default class Products extends React.Component {
             </div>
           ))
         }
-        <button className='overview-checkout' onClick={e => this.setState({ showCheckout: true })}>Checkout</button>
+        <button className='overview-checkout' onClick={e => this.setState({ showCheckout: true, showCart: false })}>Checkout</button>
       </div>
     )
     return  (
@@ -166,7 +166,7 @@ export default class Products extends React.Component {
               className="add-to-cart"
               onClick={e => this.state.cart.filter(p => p.characteristics.sku === product.characteristics.sku && product.quantity === '1').length === 0 ? this.setState({cart: this.state.cart.concat([product])}) : '' }
             >Add to cart</button>
-            <button className="add-to-cart checkout" onClick={e => this.setState({showCheckout: true, cart: this.state.cart.concat([product])})}>Add to cart and Checkout</button>
+            <button className="add-to-cart checkout" onClick={e => this.setState({showCheckout: true, showCart: false, cart: this.state.cart.concat([product])})}>Add to cart and checkout</button>
           </div>
         </div>
       </div>

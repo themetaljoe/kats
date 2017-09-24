@@ -1098,7 +1098,7 @@ blockquote em{
   z-index: 10;
   background: white;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 60px 20px 20px 20px;
   overflow: scroll;
 }
 .checkout-products .cart-item{
@@ -1147,11 +1147,11 @@ blockquote em{
   padding: 20px;
 }
 .checkout-form{
-  margin-top: 20px;
+  margin-top: 30px;
   background: #efefef;
   box-shadow: 0 0 10px #656565;
 }
-.checkout-form button{
+.checkout-form button, .back-to-products{
   margin: 20px;
   border: 2px solid black;
   background: #03A9F4;
@@ -1160,4 +1160,36 @@ blockquote em{
   width: calc(100% - 40px);
   padding: 10px 20px;
   cursor: pointer;
+}
+.back-to-products::after{
+  content: '';
+  display: block;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  border-right: 10px solid white;
+  border-bottom: 10px solid transparent;
+  border-top: 10px solid transparent;
+}
+.back-to-products::before{
+  content: '';
+  display: block;
+  position: absolute;
+  left: 20px;
+  top: 15px;
+  height: 10px;
+  background: white;
+  width: 20px;
+}
+.back-to-products{
+  position: fixed;
+  margin: 0 0 20px 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+  box-shadow: 0 0 10px #afafaf;
+}
+.your-items{
+  margin: 20px;
 }
