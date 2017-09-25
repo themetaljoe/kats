@@ -1,7 +1,5 @@
 import React from 'react';
 import deepmerge from 'deepmerge';
-/* suppress react warnings about content editable */
-window.process.env.NODE_ENV = 'production';
 
 export default class Product extends React.Component {
   constructor() {
@@ -21,7 +19,7 @@ export default class Product extends React.Component {
   componentDidMount() {
     $(this.el).on('input', '.product-value', (e) => {
       const $target = e.currentTarget
-      const value = $target.innerHTML.replace(/(<([^>]+)>)/ig, '');
+      const value = e.target.value;
       const currentKey = $($target).prev().html();
       const parentKey = $($target).parent().attr('class');
       const hasParentKey = parentKey !== 'product';
@@ -57,26 +55,22 @@ export default class Product extends React.Component {
           .map(key => {
             if(key === 'photo_urls') {
               return (
-                <div suppressContentEditableWarning={true} className={'photo_urls'}>
+                <div className={'photo_urls'}>
                   <div className="product-key">
                     photo_urls
                   </div>
-                  <div className="product-value" contentEditable="true" >
-                    { obj[key][0] ? obj[key][0] : 'https://sample.url.com/pig.png' }
-                  </div>
+                  <input className="product-value" defaultValue={ obj[key][0] ? obj[key][0] : 'https://sample.url.com/pig.png' } />
                 </div>
               );
             } else if (obj[key] && typeof(obj[key]) === 'object') {
               return (this.layoutFromObject(obj[key], key));
             }
             return (
-              <div suppressContentEditableWarning={true} className={keyname}>
+              <div className={keyname}>
                 <div className="product-key">
                   {key}
                 </div>
-                <div className="product-value" contentEditable="true" >
-                  {obj[key]}
-                </div>
+                <input className="product-value" defaultValue={obj[key]} />
               </div>
             );
           })

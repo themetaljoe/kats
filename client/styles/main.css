@@ -983,8 +983,10 @@ blockquote em{
   display: inline;
 }
 .product-value{
+  width: 100%;
   background: white;
   padding: 20px;
+  box-sizing: border-box;
   margin: 10px 0;
 }
 .collapse-product{
