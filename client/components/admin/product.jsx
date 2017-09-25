@@ -13,66 +13,74 @@ export default class Product extends React.Component {
 
   componentWillMount() {
     const { product } = this.props;
-    this.setState({ changedObject: product });
+    this.changedObject = JSON.parse(JSON.stringify(product));
   }
 
-  componentDidMount() {
-    $(this.el).on('input', '.product-value', (e) => {
-      const $target = e.currentTarget
-      const value = e.target.value;
-      const currentKey = $($target).prev().html();
-      const parentKey = $($target).parent().attr('class');
-      const hasParentKey = parentKey !== 'product';
-      const key = hasParentKey ? `product.${parentKey}.${currentKey}` : `product.${currentKey}`
-      const { changedObject } = this;
+  shouldComponentUpdate(nextProps, nextState) {
+    return !(JSON.stringify(nextProps) === JSON.stringify(this.props) && JSON.stringify(nextState) === JSON.stringify(this.state))
+  }
 
-      if (key.indexOf('photo_urls') > -1) {
-        changedObject.photo_urls = [value];
-      } else if (hasParentKey) {
-        if(!changedObject[hasParentKey]) {
-          changedObject[parentKey] = {};
-        }
-        changedObject[parentKey][currentKey] = value;
-      } else {
-        changedObject[currentKey] = value;
-      }
+  onChangeHandler(e) {
+    const $target = e.currentTarget
+    const value = e.target.value;
+    const currentKey = $($target).prev().html();
+    const parentKey = $($target).parent().attr('class');
+    const hasParentKey = parentKey !== 'product';
+    const key = hasParentKey ? `product.${parentKey}.${currentKey}` : `product.${currentKey}`
+    const changedObject = JSON.parse(JSON.stringify(this.changedObject));
 
-      this.changedObject = changedObject;
+    if (key.indexOf('photo_urls') > -1) {
+      changedObject.photo_urls = [value];
+    } else if (hasParentKey) {
+      changedObject[parentKey][currentKey] = value;
+    } else {
+      changedObject[currentKey] = value;
+    }
 
-      if (!this.state.hasChanges) {
-        this.setState({ hasChanges: true });
-      }
-      e.stopPropagation();
-    })
+    if (!this.state.hasChanges) {
+      this.setState({ hasChanges: true });
+    }
+    this.changedObject = changedObject;
+    e.stopPropagation();
   }
 
   layoutFromObject(obj, keyname) {
     return (
-      <div key={Meteor.uuid()}>
+      <div key={`${JSON.stringify(obj)}`}>
         {keyname}
         {
           Object.keys(obj)
           .map(key => {
             if(key === 'photo_urls') {
               return (
-                <div key={Meteor.uuid()} className={'photo_urls'}>
+                <div key={`${this.changedObject.characteristics.sku}-${key}`} className={'photo_urls'}>
                   <div className="product-key">
                     photo_urls
                   </div>
-                  <input className="product-value" defaultValue={ obj[key][0] ? obj[key][0] : 'https://sample.url.com/pig.png' } />
+                  <input
+                    onChange={this.onChangeHandler.bind(this)}
+                    className="product-value"
+                    defaultValue={ obj[key][0] ? obj[key][0] : 'https://sample.url.com/pig.png' }
+                  />
                 </div>
               );
             } else if (obj[key] && typeof(obj[key]) === 'object') {
               return (this.layoutFromObject(obj[key], key));
             }
-            return (
-              <div key={Meteor.uuid()} className={keyname}>
-                <div className="product-key">
-                  {key}
+            else if(obj[key]) {
+              return (
+                <div key={`${this.changedObject.characteristics.sku}-${key}`} className={keyname}>
+                  <div className="product-key">
+                    {key}
+                  </div>
+                  <input
+                    className="product-value"
+                    defaultValue={obj[key]}
+                    onChange={this.onChangeHandler.bind(this)}
+                  />
                 </div>
-                <input className="product-value" defaultValue={obj[key]} />
-              </div>
-            );
+              );
+            }
           })
         }
       </div>
@@ -80,12 +88,13 @@ export default class Product extends React.Component {
   }
 
   saveTransform() {
-    const { product } = this.props;
     const { changedObject } = this;
-    Meteor.call('saveTransform', deepmerge(product, changedObject), (err, res) => {
+    Meteor.call('saveTransform', changedObject, (err, res) => {
       if (!err) {
-        changedObject._id = res;
-        this.setState({ hasChanges: false, changedObject })
+        if (res) {
+          changedObject._id = res;
+        }
+        this.setState({ hasChanges: false })
         this.props.updateTransforms();
       }
     });
@@ -93,14 +102,14 @@ export default class Product extends React.Component {
 
   render() {
     const { product } = this.props;
-    const { expanded, hasChanges } = this.state;
+    const { hasChanges } = this.state;
     return (
       <div ref={el => this.el = el} className='admin-product'>
         <div
           className="collapse-product"
-          onClick={e => this.setState({ expanded: !expanded })}
+          onClick={e => this.setState({ expanded: !this.state.expanded })}
         >
-          {expanded ? '-' : '+'}
+          {this.state.expanded ? '-' : '+'}
         </div>
         {
           hasChanges ?
@@ -111,11 +120,11 @@ export default class Product extends React.Component {
               </div>
             ) : ''
         }
-        <div className={`admin-product-content ${expanded ? '' : 'collapsed'}`}>
+        <div className={`admin-product-content ${this.state.expanded ? '' : 'collapsed'}`}>
           {
-            expanded ?
+            this.state.expanded ?
               this.layoutFromObject(product, 'product') :
-              <div className='admin-product-collapse-content'>{product.title}</div>
+              <div className='admin-product-collapse-content'>{product.characteristics.manufacturer + ': ' + product.characteristics.model}</div>
           }
         </div>
       </div>

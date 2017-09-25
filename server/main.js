@@ -131,7 +131,8 @@ Meteor.methods({
   },
 
   saveTransform(transform) {
-    return Transforms.upsert({'_id': transform._id }, transform).insertedId;
+    console.log(transform._id)
+    return Transforms.upsert({'_id': transform._id || '' }, transform).insertedId;
   },
 
   getTransforms() {
