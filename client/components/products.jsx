@@ -5,6 +5,15 @@ import Location from './location';
 import { List } from 'react-virtualized'
 import Checkout from './checkout/checkout';
 
+const convert = (str) => {
+  return str.replace(/\w\S*/g,
+    (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
+    .replace(/Brand: /g, "").replace(/Color: /g, "").replace(/Model: /g, "")
+    .replace(/Musical Instrument/g, "").replace(/ *\([^)]*\) */g, "")
+    .replace(/&/g, " and ").replace(/ \//g,', ').replace('/\-/', ', ')
+    .replace(/c\/e/g, "c / E")
+}
+
 export default class Products extends React.Component {
   constructor() {
     super();
@@ -160,8 +169,8 @@ export default class Products extends React.Component {
             <h2>${parseFloat(product.value).toFixed(2)}</h2>
           </div>
           <div className='product-content'>
-            <h1>{product.characteristics.manufacturer + ': ' + product.characteristics.model}</h1>
-            <h3>{product.description.replace(/ *\([^)]*\) */g, "").split("WAS")[0].replace("Brand:", '\nBrand:')}</h3>
+            <h1>{convert(product.characteristics.manufacturer + ': ' + product.characteristics.model)}</h1>
+            <h3>{convert(product.description)}</h3>
           </div>
           <div className='shopping-cart-buttons'>
             <button
