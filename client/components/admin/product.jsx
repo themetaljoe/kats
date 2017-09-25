@@ -48,14 +48,14 @@ export default class Product extends React.Component {
 
   layoutFromObject(obj, keyname) {
     return (
-      <div>
+      <div key={Meteor.uuid()}>
         {keyname}
         {
           Object.keys(obj)
           .map(key => {
             if(key === 'photo_urls') {
               return (
-                <div className={'photo_urls'}>
+                <div key={Meteor.uuid()} className={'photo_urls'}>
                   <div className="product-key">
                     photo_urls
                   </div>
@@ -66,7 +66,7 @@ export default class Product extends React.Component {
               return (this.layoutFromObject(obj[key], key));
             }
             return (
-              <div className={keyname}>
+              <div key={Meteor.uuid()} className={keyname}>
                 <div className="product-key">
                   {key}
                 </div>
