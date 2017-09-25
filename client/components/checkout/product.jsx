@@ -15,7 +15,7 @@ export default class CheckoutProduct extends React.Component {
     const { p, cart, update } = this.props;
     return (
       <div className='cart-item'>
-        { p.photo_urls.length > 0 ? <img src={p.photo_urls[0]} /> : <img src="https://unsplash.it/200/300" /> }
+        { p.photo_urls.length > 0 ? <img src={p.photo_urls[0]} /> : <img src="https://www.us.aspjj.com/sites/aspjj.com.us/files/default_images/No_available_image_3.jpg" /> }
         <span className='title'>{convert(p.characteristics.manufacturer) + ': ' + p.characteristics.model}</span>
         <span className='value'>${(+p.value).toFixed(2)}</span>
         <span className='description'>{convert(p.description)}</span>

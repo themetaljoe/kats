@@ -59,7 +59,7 @@ export default class Products extends React.Component {
         {
           this.state.cart.map(p => (
             <div className='cart-item'>
-              { p.photo_urls.length > 0 ? <img src={p.photo_urls[0]} /> : <img src="https://unsplash.it/200/300" /> }
+              { p.photo_urls.length > 0 ? <img src={p.photo_urls[0]} /> : <img src="https://www.us.aspjj.com/sites/aspjj.com.us/files/default_images/No_available_image_3.jpg" /> }
               <span className='title'>{p.characteristics.manufacturer + ': ' + p.characteristics.model}</span>
               <span className='value'>${(+p.value).toFixed(2)}</span>
               <span className='description'>{convert(p.description)}</span>
@@ -152,7 +152,7 @@ export default class Products extends React.Component {
         <div
         >
           <div className='image-price'>
-            {product.photo_urls.length > 0 ? <img src={product.photo_urls[0]} /> : <img src='https://unsplash.it/200/300' /> }
+            {product.photo_urls.length > 0 ? <img src={product.photo_urls[0]} /> : <img src='https://www.us.aspjj.com/sites/aspjj.com.us/files/default_images/No_available_image_3.jpg' /> }
             <h2>${parseFloat(product.value).toFixed(2)}</h2>
           </div>
           <div className='product-content'>
