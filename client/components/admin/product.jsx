@@ -54,7 +54,6 @@ export default class Product extends React.Component {
   layoutFromObject(obj, keyname) {
     return (
       <div key={`${JSON.stringify(obj)}`}>
-        {keyname}
         {
           Object.keys(obj)
           .map(key => {

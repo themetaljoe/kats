@@ -949,7 +949,8 @@ blockquote em{
 .cart-item .title{
   margin-left: 20px;
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: top;
+  font-size: 30px;
 }
 .cart-item .value{
   margin: 10px 0;
@@ -975,6 +976,9 @@ blockquote em{
 .overview-checkout{
   margin-left: 10px;
 }
+.admin-product-content {
+  padding-top: 20px;
+}
 .admin-product{
   padding: 20px;
   background: #efefef;
@@ -993,6 +997,8 @@ blockquote em{
   margin: 10px 0;
 }
 .collapse-product{
+  user-select: none;
+  cursor: pointer;
   background: #343434;
   color: white;
   font-size: 30px;
@@ -1006,6 +1012,7 @@ blockquote em{
 }
 .admin-product-content.collapsed{
   display: inline-block;
+  padding-top: 0;
   vertical-align: middle;
   margin-left: 20px;
   overflow: hidden;
