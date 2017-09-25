@@ -6,12 +6,13 @@ import { List } from 'react-virtualized'
 import Checkout from './checkout/checkout';
 
 const convert = (str) => {
-  return str.replace(/\w\S*/g,
+  return str.split("WAS")[0].replace(/\w\S*/g,
     (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
-    .replace(/Brand: /g, "").replace(/Color: /g, "").replace(/Model: /g, "")
+    .replace(/Brand: /g, "").replace(/A&l/g, "Art and Lutherie").replace(/B&s/g, 'Back And Sides')
+    .replace(/Color: /g, "").replace(/Model: /g, "")
     .replace(/Musical Instrument/g, "").replace(/ *\([^)]*\) */g, "")
     .replace(/&/g, " and ").replace(/ \//g,', ').replace('/\-/', ', ')
-    .replace(/c\/e/g, "c / E")
+    .replace(/c\/e/g, "c / E").replace(/  /g, " ")
 }
 
 export default class Products extends React.Component {
@@ -23,8 +24,6 @@ export default class Products extends React.Component {
       products: [],
       transforms: [],
       query: '',
-      focusProduct: {},
-      focusOpen: false,
     };
     this.rowRenderer = this.rowRenderer.bind(this);
   }
@@ -49,38 +48,21 @@ export default class Products extends React.Component {
     });
   }
 
-
-  getProductOverlayLayout() {
-    const product = this.state.focusProduct;
-    return (
-      <div className='product-focus-page'>
-        <div className='product-focus-overlay' />
-        <div className='product-focus-content' onClick={() => { this.setState({ focusOpen: false }) }}>
-          <div
-            className="a-product focus"
-          >
-            <h1>{product.characteristics.manufacturer + ': ' + product.characteristics.model}</h1>
-            { product.photo_urls.length > 0 ? <img src={product.photo_urls[0]} /> : '' }
-            <h2>${parseFloat(product.value).toFixed(2)}</h2>
-            <h3>{product.description.replace(/ *\([^)]*\) */g, "").split("WAS")[0]}</h3>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   render() {
     const loading = this.state.products.length === 0;
-    const filteredProducts = this.state.products.filter(product => product.title.toLowerCase().indexOf(this.state.query.toLowerCase()) > -1);
+    const filteredProducts = this.state.products.filter(product =>
+      new RegExp(this.state.query.toLowerCase(), "i").test(convert(product.description).toLowerCase())
+    );
+
     const shoppingCartOverview = !this.state.showCart ? '' : (
       <div className="shopping-cart-overview">
         {
           this.state.cart.map(p => (
             <div className='cart-item'>
-              { p.photo_urls.length > 0 ? <img src={p.photo_urls[0]} /> : '' }
+              { p.photo_urls.length > 0 ? <img src={p.photo_urls[0]} /> : <img src="https://unsplash.it/200/300" /> }
               <span className='title'>{p.characteristics.manufacturer + ': ' + p.characteristics.model}</span>
               <span className='value'>${(+p.value).toFixed(2)}</span>
-              <span className='description'>{p.description.replace(/ *\([^)]*\) */g, "").split("WAS")[0]}</span>
+              <span className='description'>{convert(p.description)}</span>
               <button
                 className="remove-item"
                 onClick={e =>
@@ -102,20 +84,23 @@ export default class Products extends React.Component {
 
         <div className="products">
           <FixedHeader />
-          { this.state.focusOpen ? this.getProductOverlayLayout() : <span /> }
           <div className='fixed-search-bar'>
             <div className='products-search'>
-              Search <input onChange={e => this.setState({ query: e.target.value })}/>
-            </div>
-            <div className='search-status'>
-              { this.state.query !== '' ? <div>Showing <span className='query-count'>{filteredProducts.length}</span> result(s) for <span className="query">{this.state.query}</span></div> : <div>Showing all <span className='query-count'>{filteredProducts.length}</span> results</div> }
-              <div className="cart-count">{this.state.cart.length}</div>
-              <div className="cart-total">{'$' + this.state.cart.reduce((acc, next) => +acc + +next.value, 0.00).toFixed(2)}</div>
-              <div className="icon-cart" onClick={e => this.setState({showCart: !this.state.showCart})}>
-                <div className="cart-line-1"></div>
-                <div className="cart-line-2"></div>
-                <div className="cart-line-3"></div>
-                <div className="cart-wheel"></div>
+              <span className='search-icon' />
+              <input onChange={e => this.setState({ query: e.target.value })}/>
+              { <div className="results"><span className='query-count'>{filteredProducts.length}</span> results <span className="query">{this.state.query}</span></div> }
+              <div
+                className={`shopping-cart-container ${this.state.showCart ? 'open' : ''}`}
+                onClick={e => this.setState({showCart: !this.state.showCart})}
+              >
+                <div className="cart-count">{this.state.cart.length}</div>
+                <div className="cart-total">{'$' + this.state.cart.reduce((acc, next) => +acc + +next.value, 0.00).toFixed(2)}</div>
+                <div className="icon-cart">
+                  <div className="cart-line-1"></div>
+                  <div className="cart-line-2"></div>
+                  <div className="cart-line-3"></div>
+                  <div className="cart-wheel"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -151,7 +136,9 @@ export default class Products extends React.Component {
   }) {
     let { products } = this.state;
     const { query } = this.state;
-    const filteredProducts = this.state.products.filter(product => product.title.toLowerCase().indexOf(this.state.query.toLowerCase()) > -1);
+    const filteredProducts = this.state.products.filter(product =>
+      new RegExp(this.state.query.toLowerCase(), "i").test(convert(product.description).toLowerCase())
+    );
     const asProduct = filteredProducts[index];
     const isTransform = this.state.transforms.filter(prod => prod.characteristics.sku === asProduct.characteristics.sku);
     const product = isTransform.length > 0 ? isTransform[0] : asProduct;
@@ -165,19 +152,19 @@ export default class Products extends React.Component {
         <div
         >
           <div className='image-price'>
-            {product.photo_urls.length > 0 ? <img src={product.photo_urls[0]} /> : '' }
+            {product.photo_urls.length > 0 ? <img src={product.photo_urls[0]} /> : <img src='https://unsplash.it/200/300' /> }
             <h2>${parseFloat(product.value).toFixed(2)}</h2>
           </div>
           <div className='product-content'>
-            <h1>{convert(product.characteristics.manufacturer + ': ' + product.characteristics.model)}</h1>
+            <h1>{convert(product.characteristics.manufacturer) + " " + product.characteristics.model}</h1>
             <h3>{convert(product.description)}</h3>
           </div>
           <div className='shopping-cart-buttons'>
             <button
               className="add-to-cart"
               onClick={e => this.state.cart.filter(p => p.characteristics.sku === product.characteristics.sku && product.quantity === '1').length === 0 ? this.setState({cart: this.state.cart.concat([product])}) : '' }
-            >Add to cart</button>
-            <button className="add-to-cart checkout" onClick={e => this.setState({showCheckout: true, showCart: false, cart: this.state.cart.concat([product])})}>Add to cart and checkout</button>
+            >ADD TO CART</button>
+            <button className="add-to-cart checkout" onClick={e => this.setState({showCheckout: true, showCart: false, cart: this.state.cart.concat([product])})}>ADD AND CHECKOUT</button>
           </div>
         </div>
       </div>

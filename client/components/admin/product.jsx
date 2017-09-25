@@ -1,6 +1,13 @@
 import React from 'react';
 import deepmerge from 'deepmerge';
 
+const whitelistedKeys = [
+  'photo_urls',
+  'description',
+  'manufacturer',
+  'model',
+];
+
 export default class Product extends React.Component {
   constructor() {
     super();
@@ -67,7 +74,7 @@ export default class Product extends React.Component {
             } else if (obj[key] && typeof(obj[key]) === 'object') {
               return (this.layoutFromObject(obj[key], key));
             }
-            else if(obj[key]) {
+            else if(obj[key] && whitelistedKeys.indexOf(key) > -1) {
               return (
                 <div key={`${this.changedObject.characteristics.sku}-${key}`} className={keyname}>
                   <div className="product-key">

@@ -72,7 +72,7 @@ Meteor.methods({
       rp(options)
         .then(results => {
           resolve({ items: results.items, pageCount: results.page_count, page });
-        })
+        }).catch(err => console.log(err));
     });
   },
 
