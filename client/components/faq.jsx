@@ -32,12 +32,6 @@ export default class Faq extends React.Component {
                 <div className="answers">
                   <blockquote>{qaPair.answer}</blockquote>
                 </div>
-                <a href='/products'>
-                  <button>SHOP</button>
-                </a>
-                <a href='/quote'>
-                  <button>PAWN</button>
-                </a>
               </div>
             );
           })

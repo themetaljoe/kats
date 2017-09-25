@@ -39,7 +39,7 @@ export default class GearList extends React.Component {
       <li key={`brands-${brandName.name}`}>
         <div className='brand-name'>{brandName.name}</div>
         <div className='brand-image'><img src={brandName.logoPath} /></div>
-        <button onClick={() => window.location = '/products'}>CHECK OUR STOCK</button>
+        <button onClick={() => window.location = `/products?q=${brandName.name.replace(/MXR\//g, '').replace(/-/g, ' ')}`}>CHECK OUR STOCK</button>
       </li>
     ));
   }

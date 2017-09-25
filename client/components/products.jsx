@@ -24,6 +24,7 @@ export default class Products extends React.Component {
       products: [],
       transforms: [],
       query: '',
+      gettingMoreData: true,
     };
     this.rowRenderer = this.rowRenderer.bind(this);
   }
@@ -33,12 +34,21 @@ export default class Products extends React.Component {
       const { items, pageCount } = products;
 
       if (!err) {
-        this.setState({ products: this.state.products.concat(items) });
         if (page < pageCount) {
           this.getEforoProducts(page + 1);
+          this.setState({ gettingMoreData: true });
+        } else {
+          this.setState({ gettingMoreData: false });
         }
+        this.setState({ products: this.state.products.concat(items) });
       }
     });
+  }
+
+  componentWillMount() {
+    if(unescape(window.location.search).replace(/\?/g, '').split("=")[1]) {
+      this.setState({ query: unescape(window.location.search).replace(/\?/g, '').split("=")[1] });
+    }
   }
 
   componentDidMount() {
@@ -87,8 +97,14 @@ export default class Products extends React.Component {
           <div className='fixed-search-bar'>
             <div className='products-search'>
               <span className='search-icon' />
-              <input onChange={e => this.setState({ query: e.target.value })}/>
+              <input defaultValue={this.state.query} onChange={e => this.setState({ query: e.target.value })}/>
               { <div className="results"><span className='query-count'>{filteredProducts.length}</span> results <span className="query">{this.state.query}</span></div> }
+              { this.state.gettingMoreData ? <div className="search-loading">checking for more products ...</div> : '' }
+              {
+                !this.state.gettingMoreData && filteredProducts.length === 0 ?
+                  <div className="no-products-found">Sorry no products were found. More products are coming soon. Try searching for another brand or product.</div>
+                  : ''
+              }
               <div
                 className={`shopping-cart-container ${this.state.showCart ? 'open' : ''}`}
                 onClick={e => this.setState({showCart: !this.state.showCart})}
@@ -104,7 +120,7 @@ export default class Products extends React.Component {
               </div>
             </div>
           </div>
-          { loading ? <div className="loader">Loading...</div> : <div></div>}
+          { loading || this.state.gettingMoreData && filteredProducts.length === 0 ? <div className="loader">Loading...</div> : <div></div>}
           <List
             width={window.innerWidth}
             height={window.innerHeight}
