@@ -30,7 +30,7 @@ export default class Products extends React.Component {
   /* grabs the query from the url and stores is as the default search query */
   componentWillMount() {
     const query = unescape(window.location.search)
-      .replace(/\?/g, '').split('=')[1];
+      .replace(/\?/g, '').replace(/\*/, '').split('=')[1];
 
     if (query) {
       this.setState({ query });
@@ -79,9 +79,18 @@ export default class Products extends React.Component {
   }) {
     const { products } = this.state;
     const { query } = this.state;
-    const filteredProducts = products.filter(product =>
-      new RegExp(query.toLowerCase(), 'i').test(convert(product.description).toLowerCase()),
-    );
+    /* ["some", "search", "phrase"] */
+    const queryWords = query.toLowerCase().split(' ').filter(q => q !== '');
+    const filteredProducts = [];
+    queryWords.reduce((acc, next) => {
+      const wordRegex = new RegExp(next.toLowerCase(), 'i');
+      return acc.filter((p) => {
+        const doesMatch = wordRegex.test(convert(p.description).toLowerCase());
+        if (doesMatch) { filteredProducts.push(p); }
+        return !doesMatch;
+      });
+    }, products);
+
     const asProduct = filteredProducts[index];
     const isTransform = this.state.transforms.filter(prod =>
       prod.characteristics.sku === asProduct.characteristics.sku,
@@ -140,11 +149,18 @@ export default class Products extends React.Component {
     const {
       showCart,
       products,
+      query,
     } = this.state;
-    const filteredProducts = products.filter(product =>
-      new RegExp(this.state.query.toLowerCase(), 'i')
-        .test(convert(product.description).toLowerCase()),
-    );
+    const queryWords = query.toLowerCase().split(' ').filter(q => q !== '');
+    const filteredProducts = [];
+    queryWords.reduce((acc, next) => {
+      const wordRegex = new RegExp(next.toLowerCase(), 'i');
+      return acc.filter((p) => {
+        const doesMatch = wordRegex.test(convert(p.description).toLowerCase());
+        if (doesMatch) { filteredProducts.push(p); }
+        return !doesMatch;
+      });
+    }, products);
     const loading = products.length === 0 ||
       (this.state.gettingMoreData && filteredProducts.length === 0);
 

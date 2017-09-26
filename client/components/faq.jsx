@@ -29,7 +29,7 @@ export default class Faq extends React.Component {
         <br />
         {
           filteredFaq.map(qaPair => (
-            <div className="a-qa-pair">
+            <div key={qaPair.question.replace(/ /g, '-')}className="a-qa-pair">
               <div className="questions">
                 <h2>{qaPair.question}</h2>
               </div>
