@@ -7,6 +7,26 @@ import ShoppingCartOverview from './shopping-cart/overview';
 import FixedSearchBar from './shopping-cart/search-bar';
 import FixedHeader from './header';
 
+/*
+ * TODO: Refactor and add this sort to improve search quality.  Need to move
+ * submitting search to a button for this change
+  filteredProducts.sort((a, b) => {
+    const aHits = queryWords.reduce((acc, next) => {
+      const hasWord = convert(a.description).toLowerCase().indexOf(next) > -1;
+      const value = hasWord ? 1 : 0;
+      return acc + value;
+    }, 0);
+    const bHits = queryWords.reduce((acc, next) => {
+      const hasWord = convert(b.description).toLowerCase().indexOf(next) > -1;
+      const value = hasWord ? 1 : 0;
+      return acc + value;
+    }, 0);
+    return aHits <= bHits;
+  });
+ * * */
+
+
+
 export default class Products extends React.Component {
   constructor() {
     super();
@@ -81,7 +101,9 @@ export default class Products extends React.Component {
     const { query } = this.state;
     /* ["some", "search", "phrase"] */
     const queryWords = query.toLowerCase().split(' ').filter(q => q !== '');
-    const filteredProducts = [];
+    const noQuery = queryWords.length === 0;
+    const filteredProducts = noQuery ? products : [];
+
     queryWords.reduce((acc, next) => {
       const wordRegex = new RegExp(next.toLowerCase(), 'i');
       return acc.filter((p) => {
@@ -152,7 +174,8 @@ export default class Products extends React.Component {
       query,
     } = this.state;
     const queryWords = query.toLowerCase().split(' ').filter(q => q !== '');
-    const filteredProducts = [];
+    const noQuery = queryWords.length === 0;
+    const filteredProducts = noQuery ? products : [];
     queryWords.reduce((acc, next) => {
       const wordRegex = new RegExp(next.toLowerCase(), 'i');
       return acc.filter((p) => {

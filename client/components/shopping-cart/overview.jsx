@@ -1,7 +1,7 @@
 import React from 'react';
 import convert from '../../utilities/convert';
 
-export default function CheckoutOverview() {
+export default function ShoppingCartOverview(props) {
   const { cart, updateCart, openCheckout } = props;
   const defaultImg = 'https://www.us.aspjj.com/sites/aspjj.com.us/files/default_images/No_available_image_3.jpg';
 
