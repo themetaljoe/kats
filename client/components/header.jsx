@@ -1,11 +1,22 @@
 import React from 'react';
 /* TODO: Move this to a constant file */
 const links = [
-  { href: '/', content: "Home" },
-  { href: '/#about', content: "About" },
-  { href: '/#gear', content: "Brands" },
-  { href: '/#location', content: "Location" }
+  { href: '/', content: 'Home' },
+  { href: '/#about', content: 'About' },
+  { href: '/#gear', content: 'Brands' },
+  { href: '/#location', content: 'Location' },
 ];
+
+/* getLinksExpanded()
+ *  returns the default link layout for the fixed header
+ * * * */
+function getLinksExpanded() {
+  return (
+    <div className="header-links">
+      { links.map(link => (<div key={`link-${link.href}`}><a href={link.href}>{link.content}</a></div>)) }
+    </div>
+  );
+}
 
 export default class FixedHeader extends React.Component {
   constructor() {
@@ -38,36 +49,9 @@ export default class FixedHeader extends React.Component {
    * * * */
   componentDidMount() {
     this.handleResize();
-    window.addEventListener("optimizedResize", () => this.handleResize());
+    window.addEventListener('optimizedResize', () => this.handleResize());
   }
 
-  /* handleResize()
-   *   this function is responsible for showing and collapsing the links in the
-   *   main menu based on the width of the device viewing the page
-   * * * */
-  handleResize() {
-    if (innerWidth < this.menuBreakPoint && !this.state.collapsed) {
-      this.setState({ collapsed: true })
-    } else if (this.state.collapsed && innerWidth >= this.menuBreakPoint){
-      this.setState({ collapsed: false, menuHidden: true })
-    }
-  }
-
-  /* getLinksExpanded()
-   *  returns the default link layout for the fixed header
-   * * * */
-  getLinksExpanded() {
-    return (
-      <div className="header-links">
-        { links.map(link => (<div key={`link-${link.href}`}><a href={link.href}>{link.content}</a></div>)) }
-      </div>
-    );
-  }
-
-  /* Just a handle for closing the menu in a less verbose way */
-  closeMenu() {
-    this.setState({ menuHidden: true });
-  }
 
   /* getMiniMenuLayout()
    *   returns the layout for how the mobile menu looks when it is not hidden
@@ -75,9 +59,24 @@ export default class FixedHeader extends React.Component {
   getMiniMenuLayout() {
     return (
       <div>
-        <img onClick={() => { this.closeMenu() }} id='hamburger' src="hamburger.png" />
+        <img
+          alt="hamburger menu icon"
+          onClick={() => this.closeMenu()}
+          id="hamburger"
+          src="hamburger.png"
+        />
         <div className="hidden-menu">
-        { links.map(link => (<a key={`link-${link.href}`} href={link.href} onClick={() => { this.closeMenu() }}><div>{link.content}</div></a>)) }
+          {
+            links.map(link => (
+              <a
+                key={`link-${link.href}`}
+                href={link.href}
+                onClick={() => this.closeMenu()}
+              >
+                <div>{link.content}</div>
+              </a>
+            ))
+          }
         </div>
       </div>
     );
@@ -99,13 +98,32 @@ export default class FixedHeader extends React.Component {
     );
   }
 
+
+  /* Just a handle for closing the menu in a less verbose way */
+  closeMenu() {
+    this.setState({ menuHidden: true });
+  }
+
+  /* handleResize()
+   *   this function is responsible for showing and collapsing the links in the
+   *   main menu based on the width of the device viewing the page
+   * * * */
+  handleResize() {
+    if (innerWidth < this.menuBreakPoint && !this.state.collapsed) {
+      this.setState({ collapsed: true });
+    } else if (this.state.collapsed && innerWidth >= this.menuBreakPoint) {
+      this.setState({ collapsed: false, menuHidden: true });
+    }
+  }
+
+
   render() {
     return (
       <div className="fixed-header">
         <div className="header-title">
-        <img height="50" src="./allpawnlogo-optimized.png" />
+          <img alt="allpawn logo" height="50" src="./allpawnlogo-optimized.png" />
         </div>
-        { this.state.collapsed ? this.getLinksCollapsed() : this.getLinksExpanded() }
+        { this.state.collapsed ? this.getLinksCollapsed() : getLinksExpanded() }
       </div>
     );
   }

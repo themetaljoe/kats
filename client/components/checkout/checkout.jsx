@@ -1,20 +1,26 @@
 import React from 'react';
-import Products from './products.jsx'
+import { Meteor } from 'meteor/meteor';
+import Products from './products';
 
 export default class Checkout extends React.Component {
   getEmailLayout() {
     return (
-      <div className='form-main-section'>
-        <div className='title'>Email Address</div>
-        { this.getFormLine({ key: 'email', labelText: 'Email your want your receipt should be sent to.' })}
+      <div className="form-main-section">
+        <div className="title">Email Address</div>
+        {
+          this.getFormLine({
+            key: 'email',
+            labelText: 'Email your want your receipt should be sent to.',
+          })
+        }
       </div>
     );
   }
 
   getCreditCardLayout() {
     return (
-      <div className='form-main-section'>
-        <div className='title'>Credit Card</div>
+      <div className="form-main-section">
+        <div className="title">Credit Card</div>
         {
           [
             { key: 'cardNumber', labelText: 'Credit Card Number' },
@@ -28,8 +34,8 @@ export default class Checkout extends React.Component {
 
   getBillingAddressLayout() {
     return (
-      <div className='form-main-section'>
-        <div className='title'>Billing Address</div>
+      <div className="form-main-section">
+        <div className="title">Billing Address</div>
         {
           [
             { key: 'bfirstName', labelText: 'First Name' },
@@ -48,8 +54,8 @@ export default class Checkout extends React.Component {
 
   getShippingAddressLayout() {
     return (
-      <div className='form-main-section'>
-        <div className='title'>Shipping Address</div>
+      <div className="form-main-section">
+        <div className="title">Shipping Address</div>
         {
           [
             { key: 'sfirstName', labelText: 'First Name' },
@@ -67,16 +73,19 @@ export default class Checkout extends React.Component {
   }
 
   render() {
-    const { cart } = this.props;
-    const { update } = this.props;
-    const { close } = this.props;
-    const total = `$${cart.reduce((acc, next) => +acc + +next.value, 0.00).toFixed(2)}`
+    const { cart, update, close } = this.props;
+    const total = `$${cart.reduce((acc, next) => +acc + +next.value, 0.00).toFixed(2)}`;
 
     if (cart.length === 0) { close(); }
 
     return (
-      <div className='checkout-component'>
-        <button className='back-to-products' onClick={e => close() }>Back To Products Page</button>
+      <div className="checkout-component">
+        <button
+          className="back-to-products"
+          onClick={() => close()}
+        >
+          Back To Products Page
+        </button>
         <Products cart={cart} total={total} update={update} />
         <div className="checkout-form">
           { this.getEmailLayout() }
@@ -88,32 +97,35 @@ export default class Checkout extends React.Component {
           </button>
         </div>
       </div>
-    )
-  }
-
-  authCard(e) {
-    Meteor.call(
-      'authCreditCard',
-      cart, {
-        cardNumber: "5424000000000015",
-        expirationDate: "1220",
-        cardCode: "999"
-      },
-      this.state,
-      (err, res) => { console.log('auth', err, res)}
     );
   }
 
   getFormLine({ key, labelText }) {
     return (
-      <div className="checkout-form-line">
+      <div key={`${key}-${labelText}`} className="checkout-form-line">
         <span className="checkout-label">{labelText}</span>
-        <input className="checkout-input" onChange={e => {
-          const newState = {};
-          newState[key] = e.target.value;
-          this.setState(newState);
-        }}/>
+        <input
+          className="checkout-input"
+          onChange={(e) => {
+            const newState = {};
+            newState[key] = e.target.value;
+            this.setState(newState);
+          }}
+        />
       </div>
+    );
+  }
+
+  authCard() {
+    Meteor.call(
+      'authCreditCard',
+      this.props.cart, {
+        cardNumber: '5424000000000015',
+        expirationDate: '1220',
+        cardCode: '999',
+      },
+      this.state,
+      (err, res) => { console.log('auth', err, res); },
     );
   }
 }

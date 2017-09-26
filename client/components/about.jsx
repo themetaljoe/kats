@@ -11,27 +11,27 @@ import AboutInfo from '../constants/about';
  *         text(String):  the text to display on the page
  *         img(String): the path of the image
  * * * */
-export default class About extends React.Component {
-  getInfo() {
-    return AboutInfo.map(info => (
-      <div className="column" key={`info-${info.text}`}>
-        <div className="about-content">
-          <img src={info.img} />
-          <p>{info.text}</p>
-        </div>
-      </div>
-    ));
-  }
 
-  render() {
-    return (
-      <div>
-        <div className="about" id="about">
-          <h1>KAT'S GUITARS: INSTRUMENTS, REPAIRS, LESSONS, OH MY!</h1>
-          { this.getInfo() }
-        </div>
-        <div className='divider'></div>
+function getInfo() {
+  return AboutInfo.map(info => (
+    <div className="column" key={`info-${info.text}`}>
+      <div className="about-content">
+        <img alt="info" src={info.img} />
+        <p>{info.text}</p>
       </div>
-    );
-  }
+    </div>
+  ));
 }
+
+export default function About() {
+  return (
+    <div>
+      <div className="about" id="about">
+        <h1>KAT&amp;S GUITARS: INSTRUMENTS, REPAIRS, LESSONS, OH MY!</h1>
+        { getInfo() }
+      </div>
+      <div className="divider" />
+    </div>
+  );
+}
+

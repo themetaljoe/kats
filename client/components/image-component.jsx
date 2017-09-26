@@ -1,6 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import ReactAvatarEditor from 'react-avatar-editor'
+import React from 'react';
+import ReactAvatarEditor from 'react-avatar-editor';
 
 export default class ImageUpload extends React.Component {
   constructor() {
@@ -14,17 +13,109 @@ export default class ImageUpload extends React.Component {
       borderRadius: 0,
       preview: null,
       width: 200,
-      height: 200
+      height: 200,
     };
   }
 
-  handleNewImage = (e) => {
-    this.setState({ image: e.target.files[0] })
+  getDashBoard() {
+    return (
+      <div className="image-dashboard">
+        <div>
+          <label>Zoom:</label>
+          <input
+            name="scale"
+            type="range"
+            onChange={this.handleScale}
+            min="1"
+            max="2"
+            step="0.01"
+            defaultValue="1"
+          />
+        </div>
+        <div>
+          <label>Border radius:</label>
+          <input
+            name="scale"
+            type="range"
+            onChange={this.handleBorderRadius}
+            min="0"
+            max="100"
+            step="1"
+            defaultValue="0"
+          />
+        </div>
+        <div>
+          <label>Width:</label>
+          <input
+            name="width"
+            type="number"
+            onChange={this.handleWidth}
+            min="50"
+            max="400"
+            step="10"
+            value={this.state.width}
+          />
+        </div>
+        <div>
+          <label>Height:</label>
+          <input
+            name="height"
+            type="number"
+            onChange={this.handleHeight}
+            min="50"
+            max="400"
+            step="10"
+            value={this.state.height}
+          />
+        </div>
+        <div>
+          <label>X Position:</label>
+          <input
+            name="scale"
+            type="range"
+            onChange={this.handleXPosition}
+            min="0"
+            max="1"
+            step="0.01"
+            value={this.state.position.x}
+          />
+        </div>
+        <div>
+          <label>Y Position:</label>
+          <input
+            name="scale"
+            type="range"
+            onChange={this.handleYPosition}
+            min="0"
+            max="1"
+            step="0.01"
+            value={this.state.position.y}
+          />
+        </div>
+        <div>
+          <input
+            id="done-button"
+            className="done-button"
+            type="button"
+            onClick={this.handleSave}
+            value="Preview"
+          />
+        </div>
+      </div>
+    );
   }
 
-  handleSave = (data) => {
-    const img = this.editor.getImageScaledToCanvas().toDataURL()
-    const rect = this.editor.getCroppingRect()
+  setEditorRef = (editor) => {
+    if (editor) this.editor = editor;
+  }
+
+  handleNewImage = (e) => {
+    this.setState({ image: e.target.files[0] });
+  }
+
+  handleSave = () => {
+    const img = this.editor.getImageScaledToCanvas().toDataURL();
+    const rect = this.editor.getCroppingRect();
 
     this.setState({
       preview: {
@@ -37,155 +128,69 @@ export default class ImageUpload extends React.Component {
       },
       showDashboard: false,
       done: true,
-    })
+    });
   }
 
   handleScale = (e) => {
-    const scale = parseFloat(e.target.value)
-    this.setState({ scale })
+    const scale = parseFloat(e.target.value);
+    this.setState({ scale });
   }
 
   rotateLeft = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     this.setState({
-      rotate: this.state.rotate - 90
-    })
+      rotate: this.state.rotate - 90,
+    });
   }
 
   rotateRight = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     this.setState({
-      rotate: this.state.rotate + 90
-    })
+      rotate: this.state.rotate + 90,
+    });
   }
 
   handleBorderRadius = (e) => {
-    const borderRadius = parseInt(e.target.value)
-    this.setState({ borderRadius })
+    const borderRadius = parseInt(e.target.value, 10);
+    this.setState({ borderRadius });
   }
 
   handleXPosition = (e) => {
-    const x = parseFloat(e.target.value)
-    this.setState({ position: { ...this.state.position, x } })
+    const x = parseFloat(e.target.value);
+    this.setState({ position: { ...this.state.position, x } });
   }
 
   handleYPosition = (e) => {
-    const y = parseFloat(e.target.value)
-    this.setState({ position: { ...this.state.position, y } })
+    const y = parseFloat(e.target.value);
+    this.setState({ position: { ...this.state.position, y } });
   }
 
   handleWidth = (e) => {
-    const width = parseInt(e.target.value)
-    this.setState({ width })
+    const width = parseInt(e.target.value, 10);
+    this.setState({ width });
   }
 
   handleHeight = (e) => {
-    const height = parseInt(e.target.value)
-    this.setState({ height })
+    const height = parseInt(e.target.value, 10);
+    this.setState({ height });
   }
 
-  logCallback (e) {
-    console.log('callback', e)
+  logCallback() {
   }
 
-  setEditorRef = (editor) => {
-    if (editor) this.editor = editor
+  handlePositionChange = (position) => {
+    this.setState({ position });
   }
 
-  handlePositionChange = position => {
-    console.log('Position set to', position)
-    this.setState({ position })
-  }
-
-  getDashBoard() {
-    return (
-      <div className='image-dashboard'>
-        <div>
-          <label>Zoom:</label>
-          <input
-            name='scale'
-            type='range'
-            onChange={this.handleScale}
-            min='1'
-            max='2'
-            step='0.01'
-            defaultValue='1'
-          />
-        </div>
-        <div>
-          <label>Border radius:</label>
-          <input
-            name='scale'
-            type='range'
-            onChange={this.handleBorderRadius}
-            min='0'
-            max='100'
-            step='1'
-            defaultValue='0'
-          />
-        </div>
-        <div>
-          <label>Width:</label>
-          <input
-            name='width'
-            type='number'
-            onChange={this.handleWidth}
-            min='50'
-            max='400'
-            step='10'
-            value={this.state.width}
-          />
-        </div>
-        <div>
-          <label>Height:</label>
-          <input
-            name='height'
-            type='number'
-            onChange={this.handleHeight}
-            min='50'
-            max='400'
-            step='10'
-            value={this.state.height}
-          />
-        </div>
-        <div>
-          <label>X Position:</label>
-          <input
-            name='scale'
-            type='range'
-            onChange={this.handleXPosition}
-            min='0'
-            max='1'
-            step='0.01'
-            value={this.state.position.x}
-          />
-        </div>
-        <div>
-          <label>Y Position:</label>
-          <input
-            name='scale'
-            type='range'
-            onChange={this.handleYPosition}
-            min='0'
-            max='1'
-            step='0.01'
-            value={this.state.position.y}
-          />
-        </div>
-        <div>
-         <input id='done-button' className='done-button' type='button' onClick={this.handleSave} value='Preview' />
-        </div>
-      </div>
-    );
-  }
-  render () {
+  render() {
     if (this.state.done) {
       return (
         <div>
           {
             !!this.state.preview &&
             <img
+              alt="uploaded"
               src={this.state.preview.img}
               style={{ borderRadius: `${(Math.min(this.state.preview.height, this.state.preview.width) + 10) * ((this.state.preview.borderRadius / 2) / 100)}px` }}
               onClick={() => this.setState({ done: false })}
@@ -196,8 +201,8 @@ export default class ImageUpload extends React.Component {
     }
 
     return (
-      <div className='image-uploader'>
-        <div className='uploaded-image'>
+      <div className="image-uploader">
+        <div className="uploaded-image">
           <ReactAvatarEditor
             style={{ display: this.state.showDashboard ? 'block' : 'none' }}
             ref={this.setEditorRef}
@@ -219,48 +224,47 @@ export default class ImageUpload extends React.Component {
         </div>
         { this.state.showDashboard ? this.getDashBoard() : <div /> }
         <div>
-          <label className="upload-button" htmlFor='file'>UPLOAD A PICTURE</label>
+          <label className="upload-button" htmlFor="file">UPLOAD A PICTURE</label>
           <input
-            style={{display: 'none'}}
-            id='file'
-            name='newImage'
-            type='file'
+            style={{ display: 'none' }}
+            id="file"
+            name="newImage"
+            type="file"
             onChange={this.handleNewImage}
           />
         </div>
       </div>
-    )
+    );
   }
 }
 
 // Used to display the cropping rect
 class ImageWithRect extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
 
-    this.setCanvas = this.setCanvas
-    this.handleImageLoad = this.handleImageLoad
+    this.setCanvas = this.setCanvas;
+    this.handleImageLoad = this.handleImageLoad;
   }
 
-  componentDidMount () {
-    this.redraw()
+  componentDidMount() {
+    this.redraw();
   }
 
-  componentDidUpdate () {
-    this.redraw()
+  componentDidUpdate() {
+    this.redraw();
   }
 
-  setCanvas (canvas) {
-    if (canvas) this.canvas = canvas
+  setCanvas(canvas) {
+    if (canvas) this.canvas = canvas;
   }
 
-  handleImageLoad () {
-    const ctx = this.canvas.getContext('2d')
-    const { rect, width, height } = this.props
+  handleImageLoad() {
+    const ctx = this.canvas.getContext('2d');
+    const { rect, width, height } = this.props;
 
-    ctx.clearRect(0, 0, width, height)
-
-    ctx.strokeStyle = 'red'
+    ctx.clearRect(0, 0, width, height);
+    ctx.strokeStyle = 'red';
 
     if (rect && (rect.width > 1 || rect.height > 1)) {
       ctx.drawImage(
@@ -268,40 +272,40 @@ class ImageWithRect extends React.Component {
         Math.round(-rect.x * (width / rect.width)),
         Math.round(-rect.y * (height / rect.height)),
         Math.round(width / rect.width),
-        Math.round(height / rect.height)
-      )
+        Math.round(height / rect.height),
+      );
 
       if (rect) {
         ctx.strokeRect(
           1,
           1,
           Math.round(width) - 2,
-          Math.round(height) - 2
-        )
+          Math.round(height) - 2,
+        );
       }
     } else {
-      ctx.drawImage(this.imgElement, 0, 0, width, height)
+      ctx.drawImage(this.imgElement, 0, 0, width, height);
 
       if (rect) {
         ctx.strokeRect(
           Math.round(rect.x * width) + 0.5,
           Math.round(rect.y * height) + 0.5,
           Math.round(rect.width * width),
-          Math.round(rect.height * height)
-        )
+          Math.round(rect.height * height),
+        );
       }
     }
   }
 
-  redraw () {
-    const img = new Image()
+  redraw() {
+    const img = new Image();
 
-    img.src = this.props.image
-    img.onload = this.handleImageLoad
-    this.imgElement = img
+    img.src = this.props.image;
+    img.onload = this.handleImageLoad;
+    this.imgElement = img;
   }
 
-  render () {
+  render() {
     return (
       <canvas
         ref={this.setCanvas}
@@ -309,6 +313,6 @@ class ImageWithRect extends React.Component {
         width={this.props.width}
         height={this.props.height}
       />
-    )
+    );
   }
 }

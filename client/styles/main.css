@@ -1275,3 +1275,6 @@ blockquote em{
   margin-top: 10px;
   font-size: 12px;
 }
+.results-content{
+  margin: 0 20px 0 20px;
+}

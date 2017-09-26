@@ -1,7 +1,6 @@
 import React from 'react';
 import FixedHeader from './header';
 import Location from './location';
-import AvatarEditor from './image-component.jsx';
 
 export default class QuoteForm extends React.Component {
   constructor() {
@@ -9,11 +8,7 @@ export default class QuoteForm extends React.Component {
     this.state = {
       form: {},
       images: [],
-    }
-  }
-
-  handleFile(e) {
-    this.setState({ images: this.state.images.concat(e.target.files[0]).filter(file => file) });
+    };
   }
 
   getStateObject(key, val) {
@@ -23,15 +18,24 @@ export default class QuoteForm extends React.Component {
   }
 
   getField(name) {
-    return <div><span>{name}</span> <input onChange={e => this.setState(this.getStateObject(name, e.target.value))} /></div>;
+    return (
+      <div>
+        <span>{name}</span>
+        <input onChange={e => this.setState(this.getStateObject(name, e.target.value))} />
+      </div>
+    );
+  }
+
+  handleFile(e) {
+    this.setState({ images: this.state.images.concat(e.target.files[0]).filter(file => file) });
   }
 
   submit() {
-    console.log(this.state.form, this.state.images)
+    console.log(this.state.form, this.state.images);
   }
 
   render() {
-    return(
+    return (
       <div className="page">
         <div className="layout quote">
           <FixedHeader />
@@ -50,7 +54,7 @@ export default class QuoteForm extends React.Component {
             }
             <button className="upload-button" onClick={() => $('#file-upload').click()}>UPLOAD IMAGE</button>
             <button className="quote-submit" onClick={() => this.submit()}>GET A QUOTE</button>
-            <input id="file-upload" onChange={(e) => this.handleFile(e)}style={{display: 'none'}} type='file' />
+            <input id="file-upload" onChange={e => this.handleFile(e)} style={{ display: 'none' }} type="file" />
           </div>
           <Location />
         </div>

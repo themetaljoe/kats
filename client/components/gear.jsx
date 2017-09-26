@@ -1,5 +1,4 @@
 import React from 'react';
-import StickyBox from "react-sticky-box";
 /* GearBrandMap is an {Object} with [keys] who are types of gear IE: "Amps,
  * pedals, ect"
  *   each Type is the key and the value is an [Array] of "brandNames" in that
@@ -9,6 +8,39 @@ import StickyBox from "react-sticky-box";
  *   '../constants/gear.jsx'
  * * * */
 import { GearBrandMap } from '../constants/gear';
+
+/* getListItem (key)
+ *  accepts argument key which is the type IE: "AMPLIFIERS"
+ *    then (maps) over all {brandName}s in that type
+ *    return [Array] of <JSX-Layouts />
+ * * * */
+function getListItems(key) {
+  return GearBrandMap[key].map(brandName => (
+    <li key={`brands-${brandName.name}`}>
+      <div className="brand-name">{brandName.name}</div>
+      <div className="brand-image">
+        <img alt={`${brandName} logo`} src={brandName.logoPath} />
+      </div>
+      <button
+        onClick={() => {
+          window.location = `/products?q=${brandName.name.replace(/MXR\//g, '').replace(/-/g, ' ')}`;
+        }}
+      >
+        CHECK OUR STOCK
+      </button>
+    </li>
+  ));
+}
+
+function getCategoryPathImageFromIndex(index) {
+  return [
+    <img src="pedal.png" />,
+    <img src="amp.png" />,
+    <img src="pickup.png" />,
+    <img src="tube.png" />,
+    <img src="lighting.png" />,
+  ][index];
+}
 
 /* Another static component for displaying a set of gear "types" with a list of
  * brands.
@@ -27,21 +59,7 @@ export default class GearList extends React.Component {
     super();
     this.state = {
       activeCategory: Object.keys(GearBrandMap)[0],
-    }
-  }
-  /* getListItem (key)
-   *  accepts argument key which is the type IE: "AMPLIFIERS"
-   *    then (maps) over all {brandName}s in that type
-   *    return [Array] of <JSX-Layouts />
-   * * * */
-  getListItems(key) {
-    return GearBrandMap[key].map(brandName => (
-      <li key={`brands-${brandName.name}`}>
-        <div className='brand-name'>{brandName.name}</div>
-        <div className='brand-image'><img src={brandName.logoPath} /></div>
-        <button onClick={() => window.location = `/products?q=${brandName.name.replace(/MXR\//g, '').replace(/-/g, ' ')}`}>CHECK OUR STOCK</button>
-      </li>
-    ));
+    };
   }
 
   /* getLists
@@ -52,20 +70,11 @@ export default class GearList extends React.Component {
     return Object.keys(GearBrandMap).map((key, i) => (
       <div key={`gear-category-${key}`} className={`a-gear-category ${this.state.activeCategory === key ? 'focus' : ''}`} onClick={() => { window.scroll(0, $('#gear').offset().top + 30); this.setState({ activeCategory: key }); }}>
         <div>{key}</div>
-        {this.getCategoryPathImageFromIndex(i)}
+        {getCategoryPathImageFromIndex(i)}
       </div>
     ));
   }
 
-  getCategoryPathImageFromIndex(index) {
-    return [
-      <img src="pedal.png" />,
-      <img src="amp.png" />,
-      <img src="pickup.png" />,
-      <img src="tube.png" />,
-      <img src="lighting.png" />,
-    ][index];
-  }
   render() {
     return (
       <div id="gear" className="gear-list">
@@ -74,12 +83,10 @@ export default class GearList extends React.Component {
           {this.getLists()}
         </div>
         <ul>
-        {
-          this.getListItems(this.state.activeCategory)
-        }
+          {getListItems(this.state.activeCategory)}
         </ul>
-        <div className='divider'></div>
+        <div className="divider" />
       </div>
     );
   }
-};
+}
