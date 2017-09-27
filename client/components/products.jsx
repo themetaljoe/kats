@@ -186,6 +186,7 @@ export default class Products extends React.Component {
     }, products);
     const loading = products.length === 0 ||
       (this.state.gettingMoreData && filteredProducts.length === 0);
+    const listHeight = window.innerWidth < 720 ? 500 : 300;
 
     return (
       <div className="page">
@@ -219,7 +220,7 @@ export default class Products extends React.Component {
             height={window.innerHeight}
             type={this.state.type}
             rowCount={filteredProducts.length}
-            rowHeight={300}
+            rowHeight={listHeight}
             rowRenderer={this.rowRenderer.bind(this)}
           />
         </div>

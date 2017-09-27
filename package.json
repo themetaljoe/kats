@@ -20,6 +20,7 @@
     "react-sticky-box": "^0.6.1",
     "react-virtualized": "^9.10.1",
     "request": "^2.81.0",
-    "request-promise": "^4.2.1"
+    "request-promise": "^4.2.1",
+    "sendmail": "^1.2.0"
   }
 }

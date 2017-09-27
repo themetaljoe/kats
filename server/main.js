@@ -142,11 +142,13 @@ Meteor.methods({
   authCreditCard(cart, cc, formData) {
     const { bfirstName, blastName, bcompany, baddress, bcity, bstate, bzip, bcountry } = formData;
     const { sfirstName, slastName, scompany, saddress, scity, sstate, szip, scountry } = formData;
-    const items = cart.map(p => {
-      const lineItem = new APIContracts.LineItemType()
+    const { email } = formData;
+
+    const items = cart.map((p) => {
+      const lineItem = new APIContracts.LineItemType();
       lineItem.setItemId(p.characteristics.sku);
-      lineItem.setName(p.title.replace(/ /g, ''));
-      lineItem.setDescription(p.description);
+      lineItem.setName(`${p.characteristics.manufacturer}-${p.characteristics.model}`);
+      lineItem.setDescription('');
       lineItem.setQuantity('1');
       lineItem.setUnitPrice(p.value);
       return lineItem;
@@ -164,6 +166,12 @@ Meteor.methods({
     billTo.setState(bstate);
     billTo.setZip(bzip);
     billTo.setCountry(bcountry);
+
+    const customer = new APIContracts.CustomerDataType({
+      email,
+      id: Meteor.uuid().substr(0, 20),
+      type: 'individual',
+    });
 
     const shipTo = new APIContracts.CustomerAddressType();
     shipTo.setFirstName(sfirstName);
@@ -194,6 +202,7 @@ Meteor.methods({
     transactionRequestType.setLineItems(lineItems);
     transactionRequestType.setBillTo(billTo);
     transactionRequestType.setShipTo(shipTo);
+    transactionRequestType.setCustomer(customer);
 
     const createRequest = new APIContracts.CreateTransactionRequest();
     createRequest.setMerchantAuthentication(merchantAuthenticationType);

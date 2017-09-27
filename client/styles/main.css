@@ -829,7 +829,92 @@ blockquote em{
   .faq .a-qa-pair{
     width: 100%;
   }
-
+  .products-search input {
+    width: calc(100% - 160px);
+  }
+  .image-price {
+    width: 100%;
+  }
+  .image-price img {
+    height: 200px;
+    width: auto;
+  }
+  .product-content {
+    width: 100%;
+    padding-left: 0;
+    font-size: 16px;
+  }
+  .product-content h3{
+    font-size: 16px;
+  }
+  .add-to-cart {
+    margin: 20px 0 !important;
+    font-size: 12px !important;
+  }
+  .add-to-cart:first-child{
+    float: left;
+  }
+  .add-to-cart:last-child{
+    float: right;
+  }
+  .shopping-cart-overview {
+    text-align: center;
+  }
+  .cart-item img{
+    height: 100px !important;
+    width: auto !important;
+  }
+  .cart-item .title {
+    font-size: 16px !important;
+    margin-top: 10px;
+  }
+  .remove-item{
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+  .overview-checkout{
+    width: calc(100% - 20px) !important;
+    margin-left: 0 !important;
+  }
+  .checkout-products .cart-item{
+    text-align: center;
+  }
+  .form-main-section .title{
+    font-size: 22px !important;
+    font-weight: 800;
+  }
+  .form-main-section .checkout-label {
+    font-size: 12px;
+  }
+  .form-errors{
+    margin-top: 5px;
+  }
+  #checkBox{
+    vertical-align: middle;
+    margin-right: 10px;
+    height: 20px;
+    width: 20px;
+  }
+  .form-main-section label{
+    vertical-align: middle;
+  }
+  .approved-transaction {
+    width: 50%;
+  }
+  .form-main-section .checkout-form-line {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100%;
+  }
+  .checkout-input {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  .product-content h1{
+    font-size: 16px;
+    text-align: center;
+  }
   .gear-list li{
     width: 50%;
   }
@@ -1277,4 +1362,49 @@ blockquote em{
 }
 .results-content{
   margin: 0 20px 0 20px;
+}
+.transaction.processed {
+  padding: 20px;
+  box-shadow: 0 0 10px #afafaf;
+  background: #efefef;
+}
+.transaction.processed a{
+  color: darkblue;
+  margin-top: 20px;
+  font-weight: 800;
+  text-decoration: none;
+  font-size: 20px;
+}
+.transaction.processed h1{
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+.transaction.processed h3{
+  font-size: 16px;
+  color: #689F38;
+  margin-bottom: 10px;
+}
+.transaction.processed p {
+  margin-bottom: 10px;
+}
+.form-errors{
+  font-size: 12px;
+  color: red;
+}
+.success-logo {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  vertical-align: middle;
+  margin-bottom: 50px;
+  box-sizing: border-box;
+}
+.approved-transaction {
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 50px;
+  vertical-align: middle;
+  margin-left: 20px;
+  font-size: 20px;
+  color: green;
 }
