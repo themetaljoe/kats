@@ -36,6 +36,8 @@ export default class Checkout extends React.Component {
       auth: false,
       authId: 'randomID',
       showShipping: true,
+      processingPayment: false,
+      paymentErrors: {},
     };
   }
 
@@ -120,11 +122,19 @@ export default class Checkout extends React.Component {
   render() {
     const { cart, update, close } = this.props;
     const total = `$${cart.reduce((acc, next) => +acc + +next.value, 0.00).toFixed(2)}`;
-
+    const { paymentErrors } = this.state;
     if (cart.length === 0) { close(); }
 
     return (
       <div className="checkout-component">
+        {
+          paymentErrors && paymentErrors.transactionResponse ? (
+            <div className="payment-failed">
+              { paymentErrors.transactionResponse.errors.error[0].errorText}
+              <button className="ok" onClick={() => this.setState({ paymentErrors: {} })}>OK</button>
+            </div>
+          ) : ''
+        }
         <button
           className="back-to-products"
           onClick={() => {
@@ -146,9 +156,17 @@ export default class Checkout extends React.Component {
                 { this.getCreditCardLayout() }
                 { this.getBillingAddressLayout() }
                 { this.getShippingAddressLayout() }
-                <button onClick={this.authCard.bind(this)}>
-                  BUY
-                </button>
+                {
+                  this.state.processingPayment ? (
+                    <button>
+                      Processing...
+                    </button>
+                  ) : (
+                    <button onClick={this.authCard.bind(this)}>
+                      BUY
+                    </button>
+                  )
+                }
               </div>
             </div>
           ) : (
@@ -246,8 +264,10 @@ export default class Checkout extends React.Component {
   }
 
   authCard() {
+    this.setState({ processingPayment: true });
     if (!this.validateFields()) {
       console.log('need data');
+      this.setState({ processingPayment: false });
       return false;
     }
     const { cart, update } = this.props;
@@ -264,7 +284,14 @@ export default class Checkout extends React.Component {
       (err, res) => {
         console.log('auth', err, res);
         if (!err) {
-          this.setState({ auth: true, authId: res });
+          if (typeof res === 'string') {
+            this.setState({ auth: true, authId: res, processingPayment: false, paymentErrors: {} });
+          } else {
+            console.log(res);
+            this.setState({ auth: false, processingPayment: false, paymentErrors: res });
+          }
+        } else {
+          console.log(err);
         }
       },
     );

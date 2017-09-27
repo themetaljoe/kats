@@ -224,11 +224,7 @@ Meteor.methods({
                 resolve(response.getTransactionResponse().getTransId());
             }
             else{
-              reject({
-                result: response.getMessages().getResultCode(),
-                err: response.getMessages().getMessage()[0].getCode(),
-                text: response.getMessages().getMessage()[0].getText(),
-              });
+              resolve(response);
             }
         }
         else{

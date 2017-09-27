@@ -1416,3 +1416,26 @@ blockquote em{
   font-size: 20px;
   color: green;
 }
+.payment-failed{
+  position: fixed;
+  top: 200px;
+  z-index: 100;
+  background: white;
+  color: red;
+  height: 200px;
+  width: 300px;
+  left: calc(50% - 150px);
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px #afafaf;
+  text-align: center;
+}
+.payment-failed .ok{
+  background: #A5D6A7;
+  color: black;
+  cursor: pointer;
+  display: block;
+  width: 100px;
+  margin: 60px auto;
+  padding: 20px;
+}
