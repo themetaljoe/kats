@@ -130,7 +130,7 @@ export default class Products extends React.Component {
           <div className="image-price">
             {
               product.photo_urls.length > 0 || productHasPhoto ?
-                <img alt={product.title} src={productHasPhoto ? asProduct.photo_urls[asProduct.photo_urls.length - 1] : product.photo_urls[product.photo_urls].length - 1} /> :
+                <img alt={product.title} src={productHasPhoto ? asProduct.photo_urls[asProduct.photo_urls.length - 1] : product.photo_urls[product.photo_urls.length - 1]} /> :
                 <img alt="missing" src="https://www.us.aspjj.com/sites/aspjj.com.us/files/default_images/No_available_image_3.jpg" />
             }
             <h2>${parseFloat(product.value).toFixed(2)}</h2>
