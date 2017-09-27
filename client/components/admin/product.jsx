@@ -5,6 +5,7 @@ const whitelistedKeys = [
   'description',
   'manufacturer',
   'model',
+  'value',
 ];
 
 const defaultImage = 'https://sample.url.com/pig.png';

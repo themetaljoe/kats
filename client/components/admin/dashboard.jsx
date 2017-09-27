@@ -9,7 +9,7 @@ export default class Dashboard extends React.Component {
       products: [],
       transforms: [],
       lookAtTransforms: false,
-    }
+    };
   }
 
   checkData() {
