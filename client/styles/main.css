@@ -415,6 +415,7 @@
   display: block;
   height: 100px;
   width: auto;
+  max-width: 200px;
   margin: 0 auto;
 }
 .product-content{
@@ -843,8 +844,10 @@ blockquote em{
     width: 100%;
   }
   .image-price img {
-    height: 200px;
+    height: auto;
     width: auto;
+    max-height: 200px;
+    max-width: 200px;
   }
   .product-content {
     width: 100%;
@@ -982,6 +985,9 @@ blockquote em{
   }
   .a-product img{
     max-width: 200px;
+    max-height: 200px;
+    width: auto;
+    height: auto;
   }
 }
 .add-to-cart{
