@@ -63,6 +63,7 @@ export default class Products extends React.Component {
     Meteor.call('getTransforms', (err, transforms) => {
       if (!err) { this.setState({ transforms }); }
     });
+    $(window).resize(() => this.forceUpdate());
   }
 
   /* Call Meteor backend to retrieve data from eforo */
