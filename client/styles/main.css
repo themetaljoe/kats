@@ -969,6 +969,10 @@ blockquote em{
   }
 }
 @media (max-width: 500px) {
+  .add-to-cart {
+    margin: 20px 0 !important;
+    font-size: 10px !important;
+  }
   .gear-list li{
     width: 100%;
   }
@@ -1458,4 +1462,12 @@ blockquote em{
   margin-left: 10px;
   margin-right: 10px;
   color: red;
+}
+.image-capture {
+  padding: 20px;
+  font-size: 20px;
+}
+.image-capture-input {
+  margin-left: 10px;
+  padding: 20px;
 }

@@ -16,7 +16,13 @@ class Uploader extends React.Component {
       uploaded: false,
       uploading: false,
       url: '',
+      imageData: null,
     };
+  }
+  componentDidMount() {
+    const { eforoProduct, containerElement } = this.props;
+    $(containerElement).on('change', `${eforoProduct.characteristics.sku}-file`, (e) => {
+    });
   }
 
   upload() {
@@ -24,12 +30,14 @@ class Uploader extends React.Component {
     const { eforoProduct } = this.props;
     const inputValue = $(`#${eforoProduct.characteristics.sku}.photo_urls`).val();
     const isDefault = inputValue === defaultImage;
-    if (!isDefault) {
-      Meteor.call('uploadImageToEforo', eforoProduct.external_id, inputValue, (err, res) => {
+    const { imageData } = this.state;
+    if (!isDefault || imageData) {
+      Meteor.call('uploadImageToEforo', eforoProduct.external_id, inputValue, imageData, (err, res) => {
         if (err) {
           this.setState({ uploading: false });
           console.log(err);
         } else {
+          console.log(res);
           this.setState({ uploaded: true, url: res.photo_url, uploading: false });
         }
       });
@@ -39,6 +47,7 @@ class Uploader extends React.Component {
   }
 
   render() {
+    const { eforoProduct } = this.props;
     return (
       <div className="admin-uploader">
         {
@@ -55,6 +64,34 @@ class Uploader extends React.Component {
                 className="admin-upload"
               >{ this.state.uploading ? 'Uploading...' : 'Upload'}</button>
               <p className="form-errors">Upload is required for https purposes to remain credit card transactions certified on ssl.</p>
+              <div className="image-capture">
+                Or Take a Picture:
+                <input
+                  id={`${eforoProduct.characteristics.sku}-file`}
+                  type="file"
+                  className='image-capture-input'
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        this.setState({ imageData: reader.result });
+                        console.log(reader.result, file.type);
+                      };
+                      reader.onerror = () => {
+                        console.log('error reading data');
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                />
+              </div>
+              {
+                this.state.imageData ?
+                  <img src={this.state.imageData} /> :
+                  ''
+              }
             </div>
           )
         }
@@ -128,12 +165,15 @@ export default class Product extends React.Component {
                     className="product-value photo_urls"
                     defaultValue={ obj[key][0] ? obj[key][0] : defaultImage }
                   />
-                  <Uploader eforoProduct={eforoProduct} />
+                  <Uploader eforoProduct={eforoProduct} containerElement={this.el} />
                 </div>
               );
             } else if (key === 'photo_urls' && eforoProduct.photo_urls.length > 0) {
               return (
-                <img src={eforoProduct.photo_urls[eforoProduct.photo_urls.length - 1]} />
+                <div>
+                  <img src={eforoProduct.photo_urls[eforoProduct.photo_urls.length - 1]} />
+                  <Uploader eforoProduct={eforoProduct} containerElement={this.el} />
+                </div>
               )
             } else if (obj[key] && typeof(obj[key]) === 'object') {
               return this.layoutFromObject(obj[key], key, eforoProduct);
