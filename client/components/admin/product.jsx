@@ -133,7 +133,7 @@ export default class Product extends React.Component {
               );
             } else if (key === 'photo_urls' && eforoProduct.photo_urls.length > 0) {
               return (
-                <img src={eforoProduct.photo_urls[0]} />
+                <img src={eforoProduct.photo_urls[eforoProduct.photo_urls.length - 1]} />
               )
             } else if (obj[key] && typeof(obj[key]) === 'object') {
               return this.layoutFromObject(obj[key], key, eforoProduct);
