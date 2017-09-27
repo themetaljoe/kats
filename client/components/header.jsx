@@ -5,6 +5,7 @@ const links = [
   { href: '/#about', content: 'About' },
   { href: '/#gear', content: 'Brands' },
   { href: '/#location', content: 'Location' },
+  { href: '/products', content: 'Shop Now' },
 ];
 
 /* getLinksExpanded()

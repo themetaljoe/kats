@@ -60,7 +60,9 @@ export default function authCreditCard(cart, cc, formData) {
   paymentType.setCreditCard(creditCard);
 
   const transactionRequestType = new APIContracts.TransactionRequestType();
-  transactionRequestType.setTransactionType(APIContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
+  transactionRequestType.setTransactionType(
+    APIContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION,
+  );
   transactionRequestType.setPayment(paymentType);
   transactionRequestType.setAmount(cart.reduce((acc, next) => +acc + +next.value, 0.00).toFixed(2));
   transactionRequestType.setLineItems(lineItems);

@@ -25,8 +25,6 @@ import FixedHeader from './header';
   });
  * * */
 
-
-
 export default class Products extends React.Component {
   constructor() {
     super();
