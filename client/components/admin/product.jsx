@@ -24,7 +24,6 @@ class Uploader extends React.Component {
     const { eforoProduct } = this.props;
     const inputValue = $(`#${eforoProduct.characteristics.sku}.photo_urls`).val();
     const isDefault = inputValue === defaultImage;
-    console.log(isDefault ? 'please input a url' : `upload ${inputValue}`);
     if (!isDefault) {
       Meteor.call('uploadImageToEforo', eforoProduct.external_id, inputValue, (err, res) => {
         if (err) {
@@ -194,6 +193,10 @@ export default class Product extends React.Component {
                 <div className="folder" onClick={() => this.saveTransform()} />
               </div>
             ) : ''
+        }
+        {
+          eforoProduct.photo_urls.length === 0 ?
+            <span className="needs-image">Needs Image Uploaded</span> : ''
         }
         <div className={`admin-product-content ${this.state.expanded ? '' : 'collapsed'}`}>
           {
