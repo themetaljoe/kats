@@ -178,7 +178,7 @@ export default class Product extends React.Component {
       p.characteristics.sku === product.characteristics.sku,
     ).pop();
 
-    if (!eforoProduct) return '';
+    if (!eforoProduct) { return <div />; }
     return (
       <div ref={(el) => { this.el = el; }} className="admin-product">
         <div
