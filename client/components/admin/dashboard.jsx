@@ -47,7 +47,7 @@ export default class Dashboard extends React.Component {
           products={products}
         />
         {
-          filtered.map((p, i) => <Product key={`${p.characteristics.sku}-${i}`} updateTransforms={this.getTransforms.bind(this)} product={p} />)
+          filtered.map((p, i) => <Product key={`${p.characteristics.sku}-${i}`} products={products} updateTransforms={this.getTransforms.bind(this)} product={p} />)
         }
         { products.length === 0 ? 'loading ...' : '' }
       </div>

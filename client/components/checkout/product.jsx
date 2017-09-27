@@ -5,6 +5,7 @@ export default function CheckoutProduct(props) {
   const { p, cart, update } = props;
   const defaultImage = 'https://www.us.aspjj.com/sites/aspjj.com.us/files/default_images/No_available_image_3.jpg';
   const hasPhotos = p.photo_urls.length > 0;
+
   const ProductImage = hasPhotos ?
     <img alt={p.title} src={p.photo_urls[0]} /> :
     <img alt="missing" src={defaultImage} />;

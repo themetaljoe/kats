@@ -1444,3 +1444,12 @@ blockquote em{
   margin: 60px auto;
   padding: 20px;
 }
+.admin-upload{
+  padding: 20px;
+  background: #459846;
+  margin: 10px;
+}
+.admin-product img{
+  max-width: 200px;
+  max-height: 200px;
+}

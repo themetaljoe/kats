@@ -113,10 +113,12 @@ export default class Products extends React.Component {
     }, products);
 
     const asProduct = filteredProducts[index];
-    const isTransform = this.state.transforms.filter(prod =>
+    const asTransform = this.state.transforms.filter(prod =>
       prod.characteristics.sku === asProduct.characteristics.sku,
     );
-    const product = isTransform.length > 0 ? isTransform[0] : asProduct;
+    const isTransform = asTransform.length > 0;
+    const product = isTransform ? asTransform[0] : asProduct;
+    const productHasPhoto = asProduct.photo_urls.length > 0;
 
     return (
       <div
@@ -127,8 +129,8 @@ export default class Products extends React.Component {
         <div>
           <div className="image-price">
             {
-              product.photo_urls.length > 0 ?
-                <img alt={product.title} src={product.photo_urls[0]} /> :
+              product.photo_urls.length > 0 || productHasPhoto ?
+                <img alt={product.title} src={productHasPhoto ? asProduct.photo_urls[0] : product.photo_urls[0]} /> :
                 <img alt="missing" src="https://www.us.aspjj.com/sites/aspjj.com.us/files/default_images/No_available_image_3.jpg" />
             }
             <h2>${parseFloat(product.value).toFixed(2)}</h2>
@@ -146,6 +148,9 @@ export default class Products extends React.Component {
                 ).length === 0;
 
                 if (isNotInCart) {
+                  if (productHasPhoto) {
+                    product.photo_urls = [asProduct.photo_urls[0]];
+                  }
                   this.setState({ cart: this.state.cart.concat([product]) });
                 }
               }}

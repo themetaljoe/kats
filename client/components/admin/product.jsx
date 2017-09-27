@@ -1,5 +1,4 @@
 import React from 'react';
-import deepmerge from 'deepmerge';
 
 const whitelistedKeys = [
   'photo_urls',
@@ -8,13 +7,70 @@ const whitelistedKeys = [
   'model',
 ];
 
+const defaultImage = 'https://sample.url.com/pig.png';
+
+class Uploader extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      uploaded: false,
+      uploading: false,
+      url: '',
+    };
+  }
+
+  upload() {
+    this.setState({ uploading: true });
+    const { eforoProduct } = this.props;
+    const inputValue = $(`#${eforoProduct.characteristics.sku}.photo_urls`).val();
+    const isDefault = inputValue === defaultImage;
+    console.log(isDefault ? 'please input a url' : `upload ${inputValue}`);
+    if (!isDefault) {
+      Meteor.call('uploadImageToEforo', eforoProduct.external_id, inputValue, (err, res) => {
+        if (err) {
+          this.setState({ uploading: false });
+          console.log(err);
+        } else {
+          this.setState({ uploaded: true, url: res.photo_url, uploading: false });
+        }
+      });
+    } else {
+      setState({ Uploading: false });
+    }
+  }
+
+  render() {
+    return (
+      <div className="admin-uploader">
+        {
+          this.state.uploaded ? (
+            <img src={this.state.url} />
+          ) : (
+            <div>
+              <button
+                onClick={() => {
+                  if (!this.state.uploading) {
+                    this.upload();
+                  }
+                }}
+                className="admin-upload"
+              >{ this.state.uploading ? 'Uploading...' : 'Upload'}</button>
+              <p className="form-errors">Upload is required for https purposes to remain credit card transactions certified on ssl.</p>
+            </div>
+          )
+        }
+      </div>
+    );
+  }
+}
+
 export default class Product extends React.Component {
   constructor() {
     super();
     this.state = {
       expanded: false,
       hasChanges: false,
-    }
+    };
     this.changedObject = {};
   }
 
@@ -24,16 +80,19 @@ export default class Product extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !(JSON.stringify(nextProps) === JSON.stringify(this.props) && JSON.stringify(nextState) === JSON.stringify(this.state))
+    return !(
+      JSON.stringify(nextProps) === JSON.stringify(this.props)
+      && JSON.stringify(nextState) === JSON.stringify(this.state)
+    );
   }
 
   onChangeHandler(e) {
-    const $target = e.currentTarget
+    const $target = e.currentTarget;
     const value = e.target.value;
     const currentKey = $($target).prev().html();
     const parentKey = $($target).parent().attr('class');
     const hasParentKey = parentKey !== 'product';
-    const key = hasParentKey ? `product.${parentKey}.${currentKey}` : `product.${currentKey}`
+    const key = hasParentKey ? `product.${parentKey}.${currentKey}` : `product.${currentKey}`;
     const changedObject = JSON.parse(JSON.stringify(this.changedObject));
 
     if (key.indexOf('photo_urls') > -1) {
@@ -51,13 +110,14 @@ export default class Product extends React.Component {
     e.stopPropagation();
   }
 
-  layoutFromObject(obj, keyname) {
+  layoutFromObject(obj, keyname, eforoProduct) {
+
     return (
       <div key={`${JSON.stringify(obj)}`}>
         {
           Object.keys(obj)
           .map(key => {
-            if(key === 'photo_urls') {
+            if(key === 'photo_urls' && eforoProduct.photo_urls.length === 0) {
               return (
                 <div key={`${this.changedObject.characteristics.sku}-${key}`} className={'photo_urls'}>
                   <div className="product-key">
@@ -65,13 +125,19 @@ export default class Product extends React.Component {
                   </div>
                   <input
                     onChange={this.onChangeHandler.bind(this)}
-                    className="product-value"
-                    defaultValue={ obj[key][0] ? obj[key][0] : 'https://sample.url.com/pig.png' }
+                    id={`${eforoProduct.characteristics.sku}`}
+                    className="product-value photo_urls"
+                    defaultValue={ obj[key][0] ? obj[key][0] : defaultImage }
                   />
+                  <Uploader eforoProduct={eforoProduct} />
                 </div>
               );
+            } else if (key === 'photo_urls' && eforoProduct.photo_urls.length > 0) {
+              return (
+                <img src={eforoProduct.photo_urls[0]} />
+              )
             } else if (obj[key] && typeof(obj[key]) === 'object') {
-              return (this.layoutFromObject(obj[key], key));
+              return this.layoutFromObject(obj[key], key, eforoProduct);
             }
             else if(obj[key] && whitelistedKeys.indexOf(key) > -1) {
               return (
@@ -107,13 +173,17 @@ export default class Product extends React.Component {
   }
 
   render() {
-    const { product } = this.props;
+    const { product, products } = this.props;
     const { hasChanges } = this.state;
+    const eforoProduct = products.filter(p =>
+      p.characteristics.sku === product.characteristics.sku,
+    ).pop();
+
     return (
-      <div ref={el => this.el = el} className='admin-product'>
+      <div ref={(el) => { this.el = el; }} className="admin-product">
         <div
           className="collapse-product"
-          onClick={e => this.setState({ expanded: !this.state.expanded })}
+          onClick={() => this.setState({ expanded: !this.state.expanded })}
         >
           {this.state.expanded ? '-' : '+'}
         </div>
@@ -121,19 +191,24 @@ export default class Product extends React.Component {
           hasChanges ?
             (
               <div className="folder-container">
-                <div className="folder" onClick={e => this.saveTransform()}>
-                </div>
+                <div className="folder" onClick={() => this.saveTransform()} />
               </div>
             ) : ''
         }
         <div className={`admin-product-content ${this.state.expanded ? '' : 'collapsed'}`}>
           {
             this.state.expanded ?
-              this.layoutFromObject(product, 'product') :
-              <div className='admin-product-collapse-content'>{product.characteristics.manufacturer + ': ' + product.characteristics.model}</div>
+            this.layoutFromObject(product, 'product', eforoProduct) : (
+              <div className="admin-product-collapse-content">
+                {
+                  `${product.characteristics.manufacturer}: ${product.characteristics.model}`
+                }
+              </div>
+            )
           }
         </div>
       </div>
-    )
+    );
   }
 }
+
