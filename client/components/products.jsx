@@ -71,7 +71,7 @@ export default class Products extends React.Component {
     );
   }
 
-  /* Keeps reading pages of responses from Eforo and concats products to
+  /* Keeps reading pages of responses from Eforo and adds products to
    * state.
    * * */
   handleProductResponse(err, response, page) {
