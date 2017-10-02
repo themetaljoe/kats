@@ -121,6 +121,7 @@ export default class Checkout extends React.Component {
 
   render() {
     const { cart, update, close } = this.props;
+    console.log(cart)
     const total = `$${cart.reduce((acc, next) => +acc + +next.value, 0.00).toFixed(2)}`;
     const { paymentErrors } = this.state;
     if (cart.length === 0) { close(); }
@@ -286,6 +287,7 @@ export default class Checkout extends React.Component {
         if (!err) {
           if (typeof res === 'string') {
             this.setState({ auth: true, authId: res, processingPayment: false, paymentErrors: {} });
+            this.buyItem();
           } else {
             console.log(res);
             this.setState({ auth: false, processingPayment: false, paymentErrors: res });
@@ -295,5 +297,28 @@ export default class Checkout extends React.Component {
         }
       },
     );
+  }
+
+  buyItem() {
+    const { cart } = this.props
+    const { sfirstName, slastName, email, saddress, scity, sstate, szip, scountry } = this.state;
+    const customer = {
+      email,
+      name: `${sfirstName} ${slastName}`,
+      street1: saddress,
+      city: scity,
+      state: sstate,
+      postal_code: szip,
+      country: scountry,
+    };
+
+    return cart.reduce((acc, next) => {
+      return acc.then(() => new Promise((resolve, reject) => {
+        Meteor.call('markEforoProductAsSold', next, customer, (err, res) => {
+          console.log(err, res);
+          resolve({ err, res });
+        });
+      }),
+    )}, Promise.resolve());
   }
 }
