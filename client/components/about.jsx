@@ -27,7 +27,7 @@ export default function About() {
   return (
     <div>
       <div className="about" id="about">
-        <h1>KAT&amp;S GUITARS: INSTRUMENTS, REPAIRS, LESSONS, OH MY!</h1>
+        <h1>KAT&apos;S GUITARS: INSTRUMENTS, REPAIRS, LESSONS, OH MY!</h1>
         { getInfo() }
       </div>
       <div className="divider" />
