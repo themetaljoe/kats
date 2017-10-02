@@ -1498,3 +1498,9 @@ blockquote em{
   padding: 20px;
 }
 
+.cc-disabled{
+  padding: 20px;
+  margin-bottom: 40px;
+  background: #ffcdcd;
+  font-size: 20px;
+}

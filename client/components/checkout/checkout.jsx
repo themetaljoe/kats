@@ -121,13 +121,13 @@ export default class Checkout extends React.Component {
 
   render() {
     const { cart, update, close } = this.props;
-    console.log(cart)
     const total = `$${cart.reduce((acc, next) => +acc + +next.value, 0.00).toFixed(2)}`;
     const { paymentErrors } = this.state;
     if (cart.length === 0) { close(); }
 
     return (
       <div className="checkout-component">
+        <h1 className="cc-disabled">ATTENTION: Credit Card / Bank Card Transactions are currently disabled we apologize for the inconvenience.  Please call the store at <a href="tel:1-281-363-2103">281-363-2103</a> to finish this transaction.</h1>
         {
           paymentErrors && paymentErrors.transactionResponse ? (
             <div className="payment-failed">
@@ -265,6 +265,7 @@ export default class Checkout extends React.Component {
   }
 
   authCard() {
+    return false;
     this.setState({ processingPayment: true });
     if (!this.validateFields()) {
       console.log('need data');
