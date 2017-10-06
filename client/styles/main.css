@@ -17,7 +17,7 @@
   z-index: 0;
   height: 100%;
   width: 100%;
-  background: url("awesomebg.jpg");
+  background: url("electric-bg.jpg");
   background-size: cover;
 }
 .katslogo{
@@ -35,8 +35,7 @@
   z-index: 2;
   width: 100%;
   height: 70px;
-  color: #039BE5;
-  background-color: white;
+  background-color: #232323;
   box-sizing: border-box;
   padding-left: 20px;
   padding-right: 20px;
@@ -45,11 +44,11 @@
   font-size: 30px;
 }
 .fixed-header a{
-  color: #039BE5;
+  color: white;
   text-decoration: none;
 }
 .layout{
-  padding-top: 180px;
+  padding-top: 120px;
   position: absolute;
   z-index: 1;
   height: 700px;
@@ -60,7 +59,7 @@
   display: inline-block;
 }
 .header-title{
-  margin-top: 17px;
+  margin-top: 10px;
 }
 .header-links{
   float: right;
@@ -90,9 +89,10 @@
   text-shadow: 0 0 15px #353535, 0 0 15px black;
 }
 .call-to-action{
-  padding-top: 75px;
   width: 700px;
   margin: 0 auto;
+  text-align: center;
+  margin-bottom: 70px;
 }
 .call-to-action a{
   text-decoration: none;
@@ -101,14 +101,14 @@
   width: 200px;
   margin-left: 30px;
   border: none;
-  background-color: rgba(204,55,47, 0.9);
+  background-color: #232323;
   height: 50px;
   color: white;
   font-size: 20px;
   box-shadow: 0 0 15px #121212;
 }
 .call-to-action button:hover{
-  color: #CC372F;
+  color: #232323;
   background-color: white;
 }
 .main-info-background{
@@ -117,19 +117,16 @@
   margin: 0 auto;
 }
 .about{
-  background-color: #FF5722;
+  background-color: #c62828;
   color: white;
-  padding-top: 80px;
+  padding-top: 20px;
   height: 500px;
   width: 100%;
-  margin-top: 231px;
   box-sizing: border-box;
 }
 .about h1{
   text-align: center;
   font-size: 35px;
-  margin: 0 auto 20px;
-  padding: 20px;
 }
 .about-content{
   color: white;
@@ -140,12 +137,11 @@
   margin: 0 auto;
 }
 .about .column{
-  margin-top: 60px;
   text-align: center;
   height: 400px;
   padding: 0 10px 0 10px;
   width: 25%;
-  background-color: #FF5722;
+  background-color: #c62828;
   float: left;
   box-sizing: border-box;
   font-size: 20px;
@@ -157,7 +153,7 @@
   text-align: center;
 }
 .divider{
-  background-color: #FF5722;
+  background-color: #c62828;
   width: 100%;
   height: 50px;
   clear: both;
@@ -205,14 +201,25 @@
   padding-bottom: 20px;
 }
 .a-gear-category{
-  background: #343434;
+  background: #232323;
   text-align: center;
   padding: 20px;
   box-sizing: border-box;
   width: 20%;
   display: inline-block;
-  color: #FF5722;
+  color: #ef5350;
   cursor: pointer;
+}
+.above-fold-content{
+  width: calc(100% - 40px);
+  padding: 20px;
+  margin: 20px;
+  box-sizing: border-box;
+}
+.above-fold-content p {
+  margin-top: 20px;
+  padding: 40px;
+  font-family: 'Roboto', sans-serif;
 }
 .gear-list .card{
   box-shadow: 0 0 5px #afafaf;
@@ -287,7 +294,7 @@
   padding-top: 50px;
   height: 500px;
   width: 100%;
-  background-color: #039BE5;
+  background-color: #232323;
   position: relative;
   box-sizing: border-box;
 }
@@ -453,7 +460,7 @@
   top: 70px;
   width: 100%;
   z-index: 1;
-  background-color: #37474F;
+  background-color: #232323;
 }
 .products{
   overflow: hidden;
@@ -812,9 +819,6 @@ blockquote em{
     width: 50%;
     margin-top: 0;
   }
-  .about h1{
-    margin-bottom: 60px;
-  }
 }
 @media (max-width: 900px) {
   .map, .map2{
@@ -1037,7 +1041,7 @@ blockquote em{
 }
 .cart-count{
   float: right;
-  color: #89ff89;
+  color: #c62828;
   padding-top: 14px;
   margin-right: 40px;
 }
@@ -1362,14 +1366,14 @@ blockquote em{
   width: 50px;
   display: block;
   content: '';
-  background: #FFC107;
+  background: #c62828;
   height: 48px;
   width: 47px;
   z-index: 1;
 }
 .search-icon::after{
   position: absolute;
-  background: #343434;
+  background: white;
   top: 57%;
   left: 66%;
   width: 6px;
@@ -1389,7 +1393,7 @@ blockquote em{
   left: 7px;
   z-index: 50;
   border-radius: 100%;
-  border: 4px solid #343434;
+  border: 4px solid white;
 }
 .products-search .loader{
   height: 30px;
@@ -1497,7 +1501,6 @@ blockquote em{
   margin-left: 10px;
   padding: 20px;
 }
-
 .cc-disabled{
   padding: 20px;
   margin-bottom: 40px;
