@@ -75,6 +75,7 @@ export default class Products extends React.Component {
    * state.
    * * */
   handleProductResponse(err, response, page) {
+    console.log(err, response, page)
     const { items, pageCount } = response;
     const products = this.state.products.concat(items);
     const gettingMoreData = page < pageCount;
@@ -101,6 +102,7 @@ export default class Products extends React.Component {
     /* ["some", "search", "phrase"] */
     const queryWords = query.toLowerCase().split(' ').filter(q => q !== '');
     const noQuery = queryWords.length === 0;
+    console.log(noQuery, products)
     const filteredProducts = noQuery ? products : [];
 
     queryWords.reduce((acc, next) => {
@@ -114,8 +116,9 @@ export default class Products extends React.Component {
 
     const asProduct = filteredProducts[index];
     const asTransform = this.state.transforms.filter(prod =>
-      prod.characteristics.sku === asProduct.characteristics.sku,
+      prod && prod.characteristics && asProduct && asProduct.characteristics && prod.characteristics.sku === asProduct.characteristics.sku,
     );
+    console.log(asProduct, index, filteredProducts)
     const isTransform = asTransform.length > 0;
     const product = isTransform ? asTransform[0] : asProduct;
     const productHasPhoto = asProduct.photo_urls.length > 0;
