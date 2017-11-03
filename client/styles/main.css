@@ -159,18 +159,16 @@
   clear: both;
 }
 .hidden-menu{
-  box-shadow: 0 4px 2px -2px #545545;
   position: absolute;
   left: 0;
   width: 100%;
   font-size: 30px;
   margin-top: -2px;
   padding-top: 25px;
-  background: white;
+  background: #232323;
 }
 .hidden-menu div{
   padding-left: 20px;
-  background: white;
   padding-top: 10px;
   padding-bottom: 10px;
 }
