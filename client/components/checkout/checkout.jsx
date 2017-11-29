@@ -127,6 +127,7 @@ export default class Checkout extends React.Component {
 
     return (
       <div className="checkout-component">
+        <h1 className="cc-disabled">ATTENTION: Credit Card / Bank Card Transactions are currently disabled we apologize for the inconvenience.  Please call the store at <a href="tel:1-281-363-2103">281-363-2103</a> to finish this transaction.</h1>
         <a className="terms-link" href="/terms">Terms and Conditions</a>
         {
           paymentErrors && paymentErrors.transactionResponse ? (
@@ -265,6 +266,7 @@ export default class Checkout extends React.Component {
   }
 
   authCard() {
+    return false;
     this.setState({ processingPayment: true });
     if (!this.validateFields()) {
       console.log('need data');
