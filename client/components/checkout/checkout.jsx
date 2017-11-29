@@ -132,7 +132,7 @@ export default class Checkout extends React.Component {
         {
           paymentErrors && paymentErrors.transactionResponse ? (
             <div className="payment-failed">
-              { paymentErrors.transactionResponse.errors.error[0].errorText}
+              { paymentErrors.transactionResponse.errors.error[0].errorText }
               <button className="ok" onClick={() => this.setState({ paymentErrors: {} })}>OK</button>
             </div>
           ) : ''
@@ -266,7 +266,6 @@ export default class Checkout extends React.Component {
   }
 
   authCard() {
-    return false;
     this.setState({ processingPayment: true });
     if (!this.validateFields()) {
       console.log('need data');
