@@ -1,4 +1,4 @@
-import { APIContracts, APIControllers } from 'authorizenet';
+import { APIContracts, APIControllers, Constants } from 'authorizenet';
 import { Meteor } from 'meteor/meteor';
 
 const { CC_AUTH_LOGIN, CC_AUTH_TRANSACTION_KEY } = Meteor.settings;
@@ -78,6 +78,7 @@ export default function authCreditCard(cart, cc, formData) {
   console.log(JSON.stringify(createRequest.getJSON(), null, 2));
 
   const ctrl = new APIControllers.CreateTransactionController(createRequest.getJSON());
+  ctrl.setEnvironment(Constants.endpoint.production);
 
   return new Promise((resolve, reject) => {
     ctrl.execute(() => {
