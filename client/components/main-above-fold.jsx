@@ -7,7 +7,7 @@ export default function MainAboveFold() {
         <div className="slogan">
           <h1>FULL LINE MUSIC STORE – HUGE SELECTION</h1>
           <p>
-            Kat's Guitars, located in the woodlands, is a full line music
+            Kat's Guitars, located in The Woodlands TX, is a full line music
             shop with a vast selection of products. We stay stocked with top
             end guitars, amps, pedals, keyboards, violins, and many other musical
             instruments / accessories.

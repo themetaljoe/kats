@@ -11,7 +11,7 @@ export default function Location() {
           <h3>Kat&apos;s Guitars</h3>
           <p>25907 Interstate 45 N,</p>
           <p>Spring, TX 77380</p>
-          <p>(281) 363-2103</p>
+          <p>(281) 363-2110</p>
           <p>Monday - Friday: 9AM - 6:30PM</p>
           <p>Saturday: 9AM - 5:30PM</p>
           <p>Sunday: Closed</p>
